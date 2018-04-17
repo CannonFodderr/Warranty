@@ -1,6 +1,7 @@
 const express = require('express'),
         app = express(),
         bodyParser = require('body-parser'),
+        expressSanitizer = require('express-sanitizer'),
         path = require('path'),
         mongoose= require('mongoose'),
         port = process.env.PORT || 8080,
@@ -14,7 +15,12 @@ mongoose.connect(dburl);
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname + '/public')));
+app.use(expressSanitizer());
 
+app.use((req, res, next) => {
+        res.locals.msg = "";
+        next();
+})
 
 app.use(indexRoutes);
 
