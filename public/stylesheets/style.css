@@ -1,0 +1,39 @@
+html, body{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+}
+.navGrid{
+    height: auto;
+    background: #232323;
+    padding: 0vh 2vw;
+    display: grid;
+    grid-template-areas: 'brand space profile   ';
+    grid-template-columns: 1fr 6fr 3fr;
+}
+.navGrid img {
+    height: 6vh;
+}
+.brand{
+    grid-area: brand;
+    margin: 1vh auto;
+}
+.profile{
+    grid-area: profile;
+    font-size: 1.5rem;
+    margin: 1vh auto;
+}
+.navItem{
+    height: 100%;
+    color: #fff;
+    text-decoration: none;
+    margin: 1vh 1vw;
+}
+
+.container{
+    padding: 1vh 5vw;
+}

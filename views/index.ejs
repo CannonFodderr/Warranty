@@ -1,0 +1,30 @@
+<% include ./partials/header %>
+<div class="container">
+    <div class="form_container">
+        <h1>טופס רישום מוצר</h1>
+        <form action="/register" method="POST">
+            <div class="field">
+                    <label for="">שם מלא:</label>
+                    <input type="text" name="user[fullName]" placeholder="First name & Last Name" required>
+            </div>
+            <div class="field">
+                <label for="">דוא"ל:</label>
+                <input type="email" name="user[email]" placeholder="E-mail" required>
+            </div>
+            <div class="field">
+                <label for="">חשבונית:</label>
+                <input type="text" name="user[invoice]" placeholder="Invoice" required>
+            </div>
+            <div class="field">
+                    <label for="">שם מוצר:</label>
+                    <input type="text" name="user[productName]" placeholder="Product Name" required>
+            </div>
+            <div class="field">
+                <label for="">מספר סידורי:</label>
+                <input type="text" name="user[serial]"placeholder="Serial Number" required>
+            </div>
+            <input type="submit" value="שלח">
+        </form>
+    </div>
+</div>
+<% include ./partials/footer %>
