@@ -3,9 +3,10 @@ const express = require('express'),
         bodyParser = require('body-parser'),
         expressSanitizer = require('express-sanitizer'),
         path = require('path'),
-        mongoose= require('mongoose'),
-        port = process.env.PORT || 8080,
-        dburl = process.env.DBURL || 'mongodb://localhost/warranty';
+        mongoose = require('mongoose'),
+        env = require('dot-env'),
+        port = process.env.PORT, /* || 8080, */
+        dburl = process.env.DB_URL; /* || 'mongodb://localhost/warranty';*/
 
 // Routes
 const indexRoutes = require('./routes/index');

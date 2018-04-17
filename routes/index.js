@@ -15,7 +15,6 @@ formIsFilled = (req, res, next) => {
         }
 }
 
-
 router.get('/', (req, res) => res.redirect('/register'));
 router.get('/register', (req, res) => {
     res.render('index');
