@@ -9,13 +9,14 @@ const express = require('express'),
         dburl = process.env.DB_URL; /* || 'mongodb://localhost/warranty';*/
 
 // Routes
-const indexRoutes = require('./routes/index');
+const   indexRoutes = require('./routes/index'),
+        adminRoutes = require('./routes/admin');
 //  DB Config
 mongoose.connect(dburl);
 // APP Config
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname + '/public')));
+app.use(express.static(path.join(__dirname + '/public/')));
 app.use(expressSanitizer());
 
 app.use((req, res, next) => {
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 })
 
 app.use(indexRoutes);
+app.use('/admin', adminRoutes);
 
 
 

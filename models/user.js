@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
         default: Date.now()
     },
     products: [{
+        regDate: {
+            type: Date,
+            default: Date.now()
+        },
         invoice: String,
         productName: String,
         serial: String

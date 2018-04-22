@@ -12,7 +12,7 @@ body{
     background: #232323;
     padding: 0vh 2vw;
     display: grid;
-    grid-template-areas: 'brand space profile   ';
+    grid-template-areas: 'brand space profile';
     grid-template-columns: 2fr 3fr 5fr;
 }
 .navGrid img {
