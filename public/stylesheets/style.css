@@ -13,14 +13,15 @@ body{
     padding: 0vh 2vw;
     display: grid;
     grid-template-areas: 'brand space profile   ';
-    grid-template-columns: 1fr 6fr 3fr;
+    grid-template-columns: 2fr 3fr 5fr;
 }
 .navGrid img {
-    height: 6vh;
+    height: 10vh;
 }
 .brand{
     grid-area: brand;
     margin: 1vh auto;
+    width: 100%;
 }
 .profile{
     grid-area: profile;
