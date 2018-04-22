@@ -38,3 +38,7 @@ body{
 .container{
     padding: 1vh 5vw;
 }
+
+span::before{
+    float: right;
+}

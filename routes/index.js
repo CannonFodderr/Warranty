@@ -20,6 +20,7 @@ router.get('/register', (req, res) => {
     res.render('index');
 });
 router.post('/register',formIsFilled, (req, res) => {
+    console.log(req.body.store);
     let sanitizedName = req.sanitize(req.body.user.fullName);
     let newUser = {
         email: req.body.user.email,
@@ -28,7 +29,8 @@ router.post('/register',formIsFilled, (req, res) => {
     let newProduct = {
         invoice: req.body.user.invoice,
         productName: req.body.user.productName,
-        serial: req.body.user.serial
+        serial: req.body.user.serial,
+        store: req.body.store
     }
     let query = User.where({email: newUser.email});
     query.findOne((err, foundEmail) => {

@@ -3,7 +3,7 @@
     <div class="form_container">
         <h1>טופס רישום מוצר</h1>
         <%= msg %>
-        <form action="/register" method="POST">
+        <form id="regForm" action="/register" method="POST">
             <div class="field">
                     <label for="">שם מלא:</label>
                     <input type="text" name="user[fullName]" placeholder="First name & Last Name" required>
@@ -23,6 +23,25 @@
             <div class="field">
                 <label for="">מספר סידורי:</label>
                 <input type="text" name="user[serial]"placeholder="Serial Number" required>
+            </div>
+            <div class="field stores">
+                <label class="radioLabel">
+                    <input name="store" value="יפו" type="radio" />
+                    <span>סניף ראשי - יפו</span>
+                </label>
+                <label class="radioLabel">
+                    <input name="store" value="האוזן השלישית" type="radio" />
+                    <span>האוזן השלישית - ת"א</span>
+                </label>
+                <label class="radioLabel">
+                    <input name="store" value="רמת החייל" type="radio" />
+                    <span>רמת החייל - ת"א</span>
+                </label>
+                <label class="radioLabel">
+                    <input name="store" value="יהוד" type="radio" />
+                    <span>יהוד</span>
+                </label>
+                
             </div>
             <input class="btn" type="submit" value="שלח">
         </form>
