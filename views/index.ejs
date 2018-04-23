@@ -13,6 +13,10 @@
                 <input type="email" name="user[email]" placeholder="E-mail" required>
             </div>
             <div class="field">
+                <label for="">טלפון:</label>
+                <input type="tel" name="user[phone]" placeholder="Phone" minlength="9" required>
+            </div>
+            <div class="field">
                 <label for="">חשבונית:</label>
                 <input type="text" name="user[invoice]" placeholder="Invoice" required>
             </div>
@@ -24,27 +28,39 @@
                 <label for="">מספר סידורי:</label>
                 <input type="text" name="user[serial]"placeholder="Serial Number" required>
             </div>
+            <!-- Store Selector -->
             <div class="field stores">
-                <label class="radioLabel">
+                <h5>החנות בה נרכש המוצר</h5>
+                <label class="radioLabel store">
+                    <input name="store" value="אתר חלילית" type="radio" checked/>
+                    <span>אתר חלילית</span>
+                </label>
+                <label class="radioLabel store">
                     <input name="store" value="יפו" type="radio" />
                     <span>סניף ראשי - יפו</span>
                 </label>
-                <label class="radioLabel">
+                <label class="radioLabel store">
                     <input name="store" value="האוזן השלישית" type="radio" />
                     <span>האוזן השלישית - ת"א</span>
                 </label>
-                <label class="radioLabel">
+                <label class="radioLabel store">
                     <input name="store" value="רמת החייל" type="radio" />
                     <span>רמת החייל - ת"א</span>
                 </label>
-                <label class="radioLabel">
+                <label class="radioLabel store">
                     <input name="store" value="יהוד" type="radio" />
                     <span>יהוד</span>
                 </label>
-                
+                <label id="otherStore" class="radioLabel">
+                    <input name="store" value="" type="radio" placeholder="חנות אחרת" />   
+                    <span>אחר</span>
+                </label>
+                <input id="otherStoreInput" name="store" value="" type="text" placeholder="חנות אחרת" />             
             </div>
             <input class="btn" type="submit" value="שלח">
         </form>
     </div>
 </div>
+
+<script src="/scripts/form.js"></script>
 <% include ./partials/footer %>

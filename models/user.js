@@ -5,6 +5,7 @@ const express = require('express'),
 const userSchema = new mongoose.Schema({
     email: String,
     fullName: String,
+    phone: String,
     date: {
         type: Date,
         default: Date.now()

@@ -20,11 +20,11 @@ router.get('/register', (req, res) => {
     res.render('index');
 });
 router.post('/register',formIsFilled, (req, res) => {
-    console.log(req.body.store);
     let sanitizedName = req.sanitize(req.body.user.fullName);
     let newUser = {
         email: req.body.user.email,
-        fullName: sanitizedName
+        fullName: sanitizedName,
+        phone: req.body.user.phone
     }
     let newProduct = {
         invoice: req.body.user.invoice,

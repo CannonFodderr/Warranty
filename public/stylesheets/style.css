@@ -8,7 +8,7 @@ body{
     direction: rtl;
 }
 .navGrid{
-    height: auto;
+    height: 10vh;
     background: #232323;
     padding: 0vh 2vw;
     display: grid;
@@ -41,4 +41,19 @@ body{
 
 span::before{
     float: right;
+}
+.viewCnt{
+    position: relative;
+    display: none;
+}
+.showMe{
+    display: block;
+}
+#otherStoreInput{
+    display: none;
+}
+.stores{
+    padding: 0vh 1vw 1vh 1vw;
+    border: 1px solid #232323;
+    margin: 1vh auto;
 }
