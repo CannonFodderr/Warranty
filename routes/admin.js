@@ -12,7 +12,8 @@ router.get('/q', (req, res)=> {
     User.find({$or:[
         {email: new RegExp(query, 'i')}, 
         {fullName: new RegExp(query, 'i')},
-        {'products.serial': new RegExp(query, 'i')}]
+        {'products.serial': new RegExp(query, 'i')},
+        {'products.invoice': new RegExp(query, 'i')}]
     }, (err, results) => {
         if(err){
             console.log(err);
@@ -23,6 +24,33 @@ router.get('/q', (req, res)=> {
     })
     
 });
+
+router.get('/edit/:id', (req, res) => {
+    User.findById(req.params.id, (err, foundUser) => {
+        if(err){
+            console.log(err);
+            res.redirect('back');
+        } else {
+            res.render('edit', {user: foundUser});
+        }
+    })
+});
+
+router.put('/edit/:id', (req, res) => {
+    let updateData = {
+        fullName: req.body.user.fullName,
+        email: req.body.user.email,
+        phone: req.body.user.phone
+    }
+    User.findByIdAndUpdate(req.params.id, updateData, (err, updatedUser) => {
+        if(err){
+            console.log(err);
+            res.redirect('back');
+        } else {
+            res.redirect('/admin');
+        }
+    })
+})
 
 module.exports = router;
 

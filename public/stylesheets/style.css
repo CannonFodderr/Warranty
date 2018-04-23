@@ -46,6 +46,10 @@ span::before{
     position: relative;
     display: none;
 }
+.card{
+    font-size: 1.2rem;
+    letter-spacing: 1.1;
+}
 .showMe{
     display: block;
 }

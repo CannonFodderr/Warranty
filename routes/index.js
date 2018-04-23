@@ -46,14 +46,14 @@ router.post('/register',formIsFilled, (req, res) => {
                 } else {
                     createdUser.products.push(newProduct);
                     createdUser.save();
-                    res.redirect('/');
+                    res.redirect('/register');
                 }
             })
         } else {
             console.log('Found Email adding to products array');
             foundEmail.products.push(newProduct);
             foundEmail.save();
-            res.redirect('/');
+            res.redirect('/register');
         }
     });
 });

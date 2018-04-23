@@ -1,7 +1,8 @@
-const express = require('express'),
+const   express = require('express'),
         app = express(),
         bodyParser = require('body-parser'),
         expressSanitizer = require('express-sanitizer'),
+        methodOverride = require('method-override'),
         path = require('path'),
         mongoose = require('mongoose'),
         env = require('dot-env'),
@@ -18,6 +19,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname + '/public/')));
 app.use(expressSanitizer());
+app.use(methodOverride('_method'));
 
 app.use((req, res, next) => {
         res.locals.msg = "";

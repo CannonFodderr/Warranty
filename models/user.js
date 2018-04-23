@@ -1,6 +1,8 @@
 const express = require('express'),
     mongoose = require('mongoose');
 
+// Date format
+var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 const userSchema = new mongoose.Schema({
     email: String,
