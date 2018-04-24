@@ -1,0 +1,28 @@
+<% include ./partials/header %>
+<div class="container">
+    <div class="form_container">
+            <h4>עריכת מוצר</h4>
+            <form id="regForm" action="/register" method="POST">
+                <div class="field">
+                    <label for="">חשבונית:</label>
+                    <input type="text" value="<%= product.invoice %>" name="user[invoice]" placeholder="Invoice" required>
+                </div>
+                <div class="field">
+                        <label for="">שם מוצר:</label>
+                        <input type="text" value="<%= product.productName %>"name="user[productName]" placeholder="Product Name" required>
+                </div>
+                <div class="field">
+                    <label for="">מספר סידורי:</label>
+                    <input type="text" value="<%= product.serial %>" name="user[serial]"placeholder="Serial Number" required>
+                </div>
+                <!-- Store Selector -->
+                <div class="field stores">
+                    <h5>החנות בה נרכש המוצר</h5>
+                    <input name="store" value="<%= product.store %>" type="text" placeholder="חלילית יפו" />             
+                </div>
+                <input class="btn" type="submit" value="שלח">
+            </form>
+        </div>
+
+</div>
+<% include ./partials/footer %>
