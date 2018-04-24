@@ -8,23 +8,6 @@ router.get('/', (req, res)=>{
     res.render('admin', {results: []});
 });
 
-// router.get('/q', (req, res)=> {
-//     let query =  req.query.search;
-//     User.find({$or:[
-//         {email: new RegExp(query, 'i')}, 
-//         {fullName: new RegExp(query, 'i')},
-//         {'products.serial': new RegExp(query, 'i')},
-//         {'products.invoice': new RegExp(query, 'i')}]
-//     }, (err, results) => {
-//         if(err){
-//             console.log(err);
-//             res.redirect('back');
-//         } else {
-//             res.render('admin', { results: results });
-//         }
-//     })
-    
-// });
 router.get('/q', (req, res) => {
     let query = req.query.search;
     User.find({$or: [
@@ -42,38 +25,12 @@ router.get('/q', (req, res) => {
     });
 });
 
-// router.get('/edit/:id', (req, res) => {
-//     User.findById(req.params.id, (err, foundUser) => {
-//         if(err){
-//             console.log(err);
-//             res.redirect('back');
-//         } else {
-//             res.render('edit', {user: foundUser});
-//         }
-//     })
-// });
 router.get('/edit/:id', (req, res) => {
     User.findById(req.params.id)
     .then((foundUser) => {
         res.render('edit', { user: foundUser});
     })
 })
-
-// router.put('/edit/:id', (req, res) => {
-//     let updateData = {
-//         fullName: req.body.user.fullName,
-//         email: req.body.user.email,
-//         phone: req.body.user.phone
-//     }
-//     User.findByIdAndUpdate(req.params.id, updateData, (err, updatedUser) => {
-//         if(err){
-//             console.log(err);
-//             res.redirect('back');
-//         } else {
-//             res.redirect('/admin');
-//         }
-//     })
-// });
 
 router.put('/edit/:id', (req, res) => {
     let updateData = {
@@ -91,34 +48,36 @@ router.put('/edit/:id', (req, res) => {
     });
 });
 
-// router.get('/edit/:id/product/:productID', (req, res) => {
-//     let query = req.params.productID;
-//     console.log(query);
-//     User.findById({products: {'_id': mongoose.Types.ObjectId(query)}}, (err, foundProduct) =>{
-//         if(err){
-//             console.log(err);
-//             res.redirect('back');
-//         } else {
-//             console.log(foundProduct);
-//             res.render('editProduct');
-//         }
-//     })
-    
-// });
-
 router.get('/edit/:id/product/:productID', (req, res) => {
     let query = req.params.productID;
     User.findById(req.params.id)
     .then((user) => {
         let product = user.products.id(query);
-        res.render('editProduct', {product: product});
+        res.render('editProduct', {product: product, user:user});
+    })
+    .catch((err) => {
+        console.log(err);
+        res.redirect('back');
+    });
+});
+
+// Update product details
+router.put('/edit/:id/product/:productID', (req, res) => {
+    User.findOneAndUpdate({ _id: req.params.id, 'products._id': req.params.productID}, {
+        'products.$.name': req.body.user.productName,
+        'products.$.invoice': req.body.user.invoice,
+        'products.$.serial': req.body.user.serial,
+        'products.$.store': req.body.store
+    })
+    .then((updated) => {
+        console.log(updated);
+        res.redirect('/admin');
     })
     .catch((err) => {
         console.log(err);
         res.redirect('back');
     })
-})
-
+});
 module.exports = router;
 
 

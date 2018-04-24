@@ -2,7 +2,7 @@
 <div class="container">
     <div class="form_container">
             <h4>עריכת מוצר</h4>
-            <form id="regForm" action="/register" method="POST">
+            <form id="regForm" action="/admin/edit/<%= user._id %>/product/<%= product._id %>?_method=PUT"" method="POST">
                 <div class="field">
                     <label for="">חשבונית:</label>
                     <input type="text" value="<%= product.invoice %>" name="user[invoice]" placeholder="Invoice" required>
