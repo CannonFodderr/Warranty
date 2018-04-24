@@ -5,7 +5,12 @@ const   express = require('express'),
         methodOverride = require('method-override'),
         path = require('path'),
         mongoose = require('mongoose'),
+        passport = require('passport'),
+        LocalStrategy = require('passport-local'),
+        passportLocalMongoose = require('passport-local-mongoose'),
         env = require('dot-env'),
+        secret = process.env.SECRET,
+        Admin = require('./models/admin'),
         port = process.env.PORT, /* || 8080, */
         dburl = process.env.DB_URL; /* || 'mongodb://localhost/warranty';*/
 
@@ -20,7 +25,19 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname + '/public/')));
 app.use(expressSanitizer());
 app.use(methodOverride('_method'));
+app.use(require('express-session')({
+        secret: secret,
+        saveUninitialized: false,
+        resave: false
+}))
+app.use(passport.initialize());
+app.use(passport.session());
+// Auth Config
+passport.use(new LocalStrategy(Admin.authenticate()));
+passport.serializeUser(Admin.serializeUser());
+passport.deserializeUser(Admin.deserializeUser());
 
+// res locals
 app.use((req, res, next) => {
         res.locals.msg = "";
         next();

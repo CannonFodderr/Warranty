@@ -1,6 +1,8 @@
 const express = require('express'),
         router = express.Router(),
+        passport = require('passport'),
         expressSanitizer = require('express-sanitizer'),
+        // Admin = require('../models/Admin'),
         User = require('../models/user');
 
 formIsFilled = (req, res, next) => {
@@ -57,6 +59,17 @@ router.post('/register',formIsFilled, (req, res) => {
         }
     });
 });
+
+router.get('/login', (req, res) => {
+    res.render('login');
+});
+
+router.post('/login', passport.authenticate('local', 
+        { 
+            failureRedirect: '/login',
+            successRedirect: '/admin'
+        }
+));
 
 module.exports = router;
 

@@ -1,0 +1,16 @@
+<% include ./partials/header %>
+<div class="container">
+    <h4>כניסה למערכת</h4>
+    <form action="/admin/login" method="POST">
+        <div class="field">
+            <label for="">שם משתמש</label>
+            <input type="text" name="username" placeholder="Administrator" required>
+        </div>
+        <div class="field">
+            <label for="">סיסמה</label>
+            <input type="password" name="password" placeholder="Password" required>
+        </div>
+        <button class="btn">שלח</button>
+    </form>
+</div>
+<% include ./partials/footer %>
