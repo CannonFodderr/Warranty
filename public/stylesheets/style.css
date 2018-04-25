@@ -1,6 +1,6 @@
 :root{
     --primary-color: #232323;
-    --danger-color: #ad0000;
+    --danger-info: #0028ad;
 }
 html, body{
     box-sizing: border-box;
@@ -94,7 +94,7 @@ span::after{
     padding: 0.5vh 1vw;
     font-size: 1.2rem;
     margin: 0 auto;
-    background: var(--danger-color);
+    background: var(--info-color);
     color: #fff;
 }
 
