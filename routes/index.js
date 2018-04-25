@@ -1,9 +1,8 @@
-const express = require('express'),
-        router = express.Router(),
-        passport = require('passport'),
-        expressSanitizer = require('express-sanitizer'),
-        // Admin = require('../models/Admin'),
-        User = require('../models/user');
+const express               = require('express'),
+        router              = express.Router(),
+        passport            = require('passport'),
+        expressSanitizer    = require('express-sanitizer'),
+        User                = require('../models/user');
 
 formIsFilled = (req, res, next) => {
     if( req.body.user.fullName < 4 || 

@@ -34,18 +34,6 @@ router.post('/register',isAdmin, (req, res) => {
     })
 })
 
-router.get('/login', (req, res)=>{
-    res.render('admin/login');
-});
-
-router.post('/login', passport.authenticate('local', 
-        { 
-            failureRedirect: '/login',
-            successRedirect: '/admin'
-        }
-));
-
-
 router.get('/q', (req, res) => {
     let query = req.query.search;
     User.find({$or: [
