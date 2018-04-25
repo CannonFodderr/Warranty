@@ -1,3 +1,6 @@
+:root{
+    --primary-color: #232323;
+}
 html, body{
     box-sizing: border-box;
 }
@@ -9,7 +12,7 @@ body{
 }
 .navGrid{
     height: 10vh;
-    background: #232323;
+    background: var(--primary-color);
     padding: 0vh 2vw;
     display: grid;
     grid-template-areas: 'brand space profile';
@@ -57,7 +60,29 @@ span::before{
     display: none;
 }
 .stores{
+    width: fit-content;
     padding: 0vh 1vw 1vh 1vw;
-    border: 1px solid #232323;
-    margin: 1vh auto;
+    border: 1px solid var(--primary-color);
+    margin: 1vh 0 1vh auto;
 }
+
+span.radioSpan::before{
+    display: block !important;
+    position: relative !important;
+    
+}
+span.radioSpan{
+    display: block !important;
+    color: #000;
+}
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after{
+    border: 8px solid #26a69a !important;
+}
+span::after{
+    width: 0px !important;
+    position: relative !important;
+    display: none !important;
+    border: 8px solid #26a69a !important;
+}
+
+
