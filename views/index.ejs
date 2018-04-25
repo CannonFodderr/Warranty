@@ -2,6 +2,11 @@
 <div class="container">
     <div class="form_container">
         <h2>רישום מוצר</h2>
+        <% if(msg.length > 1 ) { %>
+        <div class="msg field">
+            <p><%= msg.toUpperCase() %></p>
+        </div>
+        <% } %>
         <form id="regForm" action="/register" method="POST">
             <div class="field">
                     <label for="">שם מלא:</label>
@@ -59,7 +64,8 @@
             <div class="field">
                 <label for="">הערות:</label>
                 <textarea class="materialize-textarea" name="user[note]" id="userNote" cols="10" rows="5"></textarea>
-            </div>
+            </div>  
+            <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
             <input class="btn" type="submit" value="שלח">
         </form>
     </div>

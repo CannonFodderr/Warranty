@@ -10,6 +10,7 @@ const   express = require('express'),
         passportLocalMongoose = require('passport-local-mongoose'),
         env = require('dot-env'),
         secret = process.env.SECRET,
+        captchaKey = process.env.CAPTCHA,
         Admin = require('./models/admin'),
         port = process.env.PORT, /* || 8080, */
         dburl = process.env.DB_URL; /* || 'mongodb://localhost/warranty';*/

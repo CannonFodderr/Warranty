@@ -1,5 +1,6 @@
 :root{
     --primary-color: #232323;
+    --danger-color: #ad0000;
 }
 html, body{
     box-sizing: border-box;
@@ -13,7 +14,7 @@ body{
 .navGrid{
     height: 10vh;
     background: var(--primary-color);
-    padding: 0vh 2vw;
+    padding: 0vh 10vw 0vh 0vw;
     display: grid;
     grid-template-areas: 'brand space profile';
     grid-template-columns: 2fr 3fr 5fr;
@@ -85,4 +86,15 @@ span::after{
     border: 8px solid #26a69a !important;
 }
 
+.g-recaptcha{
+    margin: 2vh auto;
+}
+.msg{
+    text-align: center;
+    padding: 0.5vh 1vw;
+    font-size: 1.2rem;
+    margin: 0 auto;
+    background: var(--danger-color);
+    color: #fff;
+}
 

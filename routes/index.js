@@ -1,6 +1,8 @@
 const express               = require('express'),
         router              = express.Router(),
+        request             = require('request');
         passport            = require('passport'),
+        captchaKey          = process.env.CAPTCHA,
         expressSanitizer    = require('express-sanitizer'),
         User                = require('../models/user');
 
@@ -19,7 +21,7 @@ formIsFilled = (req, res, next) => {
 router.get('/', (req, res) => res.redirect('/register'));
 // Display form page
 router.get('/register', (req, res) => {
-    res.render('index');
+    res.render('index', {captcha: captchaKey});
 });
 // Post a new form
 router.post('/register',formIsFilled, (req, res) => {
@@ -37,8 +39,18 @@ router.post('/register',formIsFilled, (req, res) => {
         store: req.body.store,
         note: sanitizedNote
     }
-    let query = User.where({email: newUser.email});
-    query.findOne((err, foundEmail) => {
+    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+        return res.render('index', {msg: "Please select captcha"});
+    }
+    var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + captchaKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+    request(verificationUrl,function(error,response,body) {
+        body = JSON.parse(body);
+        // Success will be true or false depending upon captcha validation.
+        if(body.success !== undefined && !body.success) {
+          return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
+        }
+        let query = User.where({email: newUser.email});
+        query.findOne((err, foundEmail) => {
         if(err){
             console.log(err);
             res.redirect('/');
@@ -61,6 +73,10 @@ router.post('/register',formIsFilled, (req, res) => {
             res.redirect('/register');
         }
     });
+    });
+
+
+    
 });
 
 router.get('/login', (req, res) => {
