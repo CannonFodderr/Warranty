@@ -1,7 +1,7 @@
 <% include ./partials/header %>
 <div class="container">
     <div class="form_container">
-        <h1>טופס רישום מוצר</h1>
+        <h2>רישום מוצר</h2>
         <form id="regForm" action="/register" method="POST">
             <div class="field">
                     <label for="">שם מלא:</label>
@@ -17,7 +17,7 @@
             </div>
             <div class="field">
                 <label for="">חשבונית:</label>
-                <input type="text" name="user[invoice]" placeholder="Invoice" required>
+                <input type="number" name="user[invoice]" placeholder="Invoice" required>
             </div>
             <div class="field">
                     <label for="">שם מוצר:</label>
@@ -55,6 +55,10 @@
                     <span class="radioSpan">אחר</span>
                 </label>
                 <input id="otherStoreInput" name="store" value="" type="text" placeholder="חנות אחרת" />             
+            </div>
+            <div class="field">
+                <label for="">הערות:</label>
+                <textarea class="materialize-textarea" name="user[note]" id="userNote" cols="10" rows="5"></textarea>
             </div>
             <input class="btn" type="submit" value="שלח">
         </form>

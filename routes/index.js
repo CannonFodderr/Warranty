@@ -24,6 +24,7 @@ router.get('/register', (req, res) => {
 // Post a new form
 router.post('/register',formIsFilled, (req, res) => {
     let sanitizedName = req.sanitize(req.body.user.fullName);
+    let sanitizedNote = req.sanitize(req.body.user.note);
     let newUser = {
         email: req.body.user.email,
         fullName: sanitizedName,
@@ -33,7 +34,8 @@ router.post('/register',formIsFilled, (req, res) => {
         invoice: req.body.user.invoice,
         productName: req.body.user.productName,
         serial: req.body.user.serial,
-        store: req.body.store
+        store: req.body.store,
+        note: sanitizedNote
     }
     let query = User.where({email: newUser.email});
     query.findOne((err, foundEmail) => {
@@ -45,12 +47,10 @@ router.post('/register',formIsFilled, (req, res) => {
             User.create(newUser, (err, createdUser) => {
                 if(err){ 
                     console.log(err);
-                    alert("נתקלנו בבעיה אנא מלא את הטופס שנית");
                     res.redirect('/');
                 } else {
                     createdUser.products.push(newProduct);
                     createdUser.save();
-                    alert("ההרשמה בוצעה בהצלחה!");
                     res.redirect('/register');
                 }
             })
@@ -58,7 +58,6 @@ router.post('/register',formIsFilled, (req, res) => {
             console.log('Found Email adding to products array');
             foundEmail.products.push(newProduct);
             foundEmail.save();
-            alert("ההרשמה נוספה בהצלחה!");
             res.redirect('/register');
         }
     });
@@ -74,6 +73,11 @@ router.post('/login', passport.authenticate('local',
             successRedirect: '/admin'
         }
 ));
+
+router.get('/logout', (req, res)=>{
+    req.logout();
+    res.redirect('/');
+});
 
 module.exports = router;
 

@@ -20,7 +20,8 @@ const userSchema = new mongoose.Schema({
         invoice: String,
         productName: String,
         serial: String,
-        store: String
+        store: String,
+        note: String
     }]
 });
 

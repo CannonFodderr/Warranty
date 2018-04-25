@@ -26,15 +26,15 @@ router.post('/register',isAdmin, (req, res) => {
     Admin.register({username: req.body.admin.username}, req.body.admin.password )
     .then((createdAdmin) =>{
         console.log("New Admin created");
-        res.redirect('/admin/login');
+        res.redirect('/login');
     })
     .catch((err)=>{
         console.log(err);
         res.redirect('back');
     })
-})
+});
 
-router.get('/q', (req, res) => {
+router.get('/q',isAdmin, (req, res) => {
     let query = req.query.search;
     User.find({$or: [
         {email: new RegExp(query, 'i')},
@@ -93,6 +93,7 @@ router.put('/edit/:id/product/:productID',isAdmin, (req, res) => {
         'products.$.name': req.body.user.productName,
         'products.$.invoice': req.body.user.invoice,
         'products.$.serial': req.body.user.serial,
+        'products.$.note': req.body.user.note,
         'products.$.store': req.body.store
     })
     .then((updated) => {
@@ -104,6 +105,7 @@ router.put('/edit/:id/product/:productID',isAdmin, (req, res) => {
         res.redirect('back');
     })
 });
+
 module.exports = router;
 
 

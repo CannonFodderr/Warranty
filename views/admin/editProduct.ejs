@@ -20,6 +20,10 @@
                     <h5>החנות בה נרכש המוצר</h5>
                     <input name="store" value="<%= product.store %>" type="text" placeholder="חלילית יפו" />             
                 </div>
+                <div class="field">
+                    <label for="">הערות:</label>
+                    <textarea class="materialize-textarea" name="user[note]" id="userNote" cols="10" rows="5"><%= product.note %></textarea>
+                </div>
                 <input class="btn" type="submit" value="שלח">
             </form>
         </div>

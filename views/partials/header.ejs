@@ -14,11 +14,15 @@
         <nav class="navGrid">
             <div class="profile">
                 <a href="/register" class="navItem">רישום מוצר</a>
+                <% if(currentAdmin){ %>
+                <a href="/logout">התנתק</a> 
+                <% } %>
             </div>
             <div class="brand">
                 <a href="http://www.halilit.com" class="navItem">
                     <img class="logo" src="/images/logo.png" alt="לוגו חלילית">
-                </a> 
+                </a>
+                
             </div>
         </nav>
     </header>

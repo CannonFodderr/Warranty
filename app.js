@@ -40,6 +40,7 @@ passport.deserializeUser(Admin.deserializeUser());
 // res locals
 app.use((req, res, next) => {
         res.locals.msg = "";
+        res.locals.currentAdmin = req.user;
         next();
 })
 
