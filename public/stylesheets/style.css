@@ -12,19 +12,21 @@ body{
     direction: rtl;
 }
 .navGrid{
-    height: 10vh;
+    height: auto;
     background: var(--primary-color);
-    padding: 0vh 10vw 0vh 0vw;
+    padding: 0vh 10vw 0vh 10vw;
     display: grid;
     grid-template-areas: 'brand space profile';
     grid-template-columns: 2fr 3fr 5fr;
+    grid-auto-rows: 10vh;
 }
 .navGrid img {
+    grid-area: brand;
     height: 10vh;
 }
 .brand{
     grid-area: brand;
-    margin: 1vh auto;
+    margin: 0vh auto;
     width: 100%;
 }
 .profile{
@@ -32,15 +34,18 @@ body{
     font-size: 1.5rem;
     margin: 1vh auto;
 }
-.navItem{
+.profile a{
+    margin: auto auto;
+}
+/* .navItem{
     height: 100%;
     color: #fff;
     text-decoration: none;
     margin: 1vh 1vw;
-}
+} */
 
 .container{
-    padding: 1vh 5vw;
+    padding: 1vh 2vw;
 }
 
 span::before{
@@ -62,8 +67,6 @@ span::before{
 }
 .stores{
     width: fit-content;
-    /* padding: 0vh 1vw 1vh 1vw; */
-    /* border: 1px solid var(--primary-color); */
     margin: 1vh 0 1vh auto;
 }
 
@@ -100,3 +103,28 @@ span::after{
 .deleteButton{
     display: inline;
 }
+
+@media (max-width: 768px){
+    .profile{
+        position: fixed;
+        width: 100%;
+        height: auto;
+        z-index: 100;
+        background: var(--primary-color);
+        bottom: 0;
+        font-size: 1.5rem;
+        margin: 0 auto;
+        padding: 0px 5px;
+    }
+    .profile a{
+        position: relative;
+        margin: 0 1%;
+    }
+    .navGrid{
+        padding: 1vw;
+    }
+    .submit{
+        margin-bottom: 10vh;
+    }
+}
+    

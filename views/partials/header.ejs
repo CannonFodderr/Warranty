@@ -13,10 +13,12 @@
     <header>
         <nav class="navGrid">
             <div class="profile">
-                <a href="/register" class="navItem">רישום מוצר</a>
+                
                 <% if(currentAdmin){ %>
-                <a href="/logout">התנתק</a> 
+                <a class="btn" href="/admin">ראשי</a> 
+                <a class="btn grey" href="/logout">התנתק</a>            
                 <% } %>
+                <a class="btn" href="/register" class="navItem">רישום מוצר</a>
             </div>
             <div class="brand">
                 <a href="http://www.halilit.com" class="navItem">
