@@ -37,7 +37,9 @@
                     <p><strong>הערה: </strong> <%= product.note %></p>
                     <div class="card-action">
                         <a href="edit/<%= result._id %>/product/<%= product._id %>" class="btn">עריכה</a>
-                        <button class="btn red deleteProd">מחיקה</button>
+                        <form class="deleteButton" action="edit/<%= result._id%>/product/<%=product._id %>?_method=DELETE" method="POST">
+                          <button class="btn red deleteProd">מחיקה</button>
+                        </form>
                     </div>
                     <hr>
                 <% }); %>

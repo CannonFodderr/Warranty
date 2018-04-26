@@ -97,4 +97,6 @@ span::after{
     background: var(--info-color);
     color: #fff;
 }
-
+.deleteButton{
+    display: inline;
+}

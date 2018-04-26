@@ -97,7 +97,6 @@ router.put('/edit/:id/product/:productID',isAdmin, (req, res) => {
         'products.$.store': req.body.store
     })
     .then((updated) => {
-        console.log(updated);
         res.redirect('/admin');
     })
     .catch((err) => {
@@ -105,6 +104,19 @@ router.put('/edit/:id/product/:productID',isAdmin, (req, res) => {
         res.redirect('back');
     })
 });
+
+router.delete('/edit/:id/product/:productID', isAdmin, (req, res) => {
+    User.findById(req.params.id)
+    .then((user)=>{
+        user.products.id(req.params.productID).remove();
+        user.save();
+        res.redirect('/admin');
+    })
+    .catch((err)=>{
+        console.log(err);
+        res.redirect('back');
+    })
+})
 
 module.exports = router;
 
