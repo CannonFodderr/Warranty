@@ -1,4 +1,4 @@
-const express               = require('express'),
+const   express             = require('express'),
         router              = express.Router(),
         request             = require('request');
         passport            = require('passport'),
@@ -59,18 +59,18 @@ router.post('/register',formIsFilled, (req, res) => {
             User.create(newUser, (err, createdUser) => {
                 if(err){ 
                     console.log(err);
-                    res.redirect('/');
+                    res.render('index', {msg: "תקלה בשליחת הטופס אנא נסה שנית"});
                 } else {
                     createdUser.products.push(newProduct);
                     createdUser.save();
-                    res.redirect('/register');
+                    res.render('index', {msg: "תודה, הטופס נשלח בהצלחה"});
                 }
             })
         } else {
             console.log('Found Email adding to products array');
             foundEmail.products.push(newProduct);
             foundEmail.save();
-            res.redirect('/register');
+            res.render('index', {msg: "תודה, הטופס נשלח בהצלחה"});
         }
     });
     });
