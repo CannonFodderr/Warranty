@@ -1,22 +1,11 @@
 const   express             = require('express'),
         router              = express.Router(),
-        request             = require('request');
+        request             = require('request'),
         passport            = require('passport'),
+        middleware          = require('../middleware'),
         captchaKey          = process.env.CAPTCHA,
         expressSanitizer    = require('express-sanitizer'),
         User                = require('../models/user');
-
-formIsFilled = (req, res, next) => {
-    if( req.body.user.fullName < 4 || 
-        req.body.user.invoice < 6 ||
-        req.body.user.productName < 4 ||
-        req.body.user.serial < 8 ) {
-            res.render('index', {msg: "Incorrect Details"});
-
-        } else {
-            next();
-        }
-}
 
 router.get('/', (req, res) => res.redirect('/register'));
 // Display form page
@@ -24,7 +13,7 @@ router.get('/register', (req, res) => {
     res.render('index', {captcha: captchaKey});
 });
 // Post a new form
-router.post('/register',formIsFilled, (req, res) => {
+router.post('/register',middleware.formIsFilled, (req, res) => {
     let sanitizedName = req.sanitize(req.body.user.fullName);
     let sanitizedNote = req.sanitize(req.body.user.note);
     let newUser = {

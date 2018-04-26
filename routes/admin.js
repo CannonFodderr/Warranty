@@ -2,27 +2,20 @@ const   express = require('express'),
         router = express.Router(),
         mongoose = require('mongoose'),
         passport = require('passport'),
+        middleware = require('../middleware'),
         expressSanitizer = require('express-sanitizer'),
         Admin = require('../models/admin'),
         User = require('../models/user');
 
-let isAdmin = (req, res, next) => {
-    if(req.isAuthenticated()) {
-        return next();
-    } else {
-        res.redirect('/login');
-    }
-}
-
-router.get('/',isAdmin, (req, res)=>{
+router.get('/',middleware.isAdmin, (req, res)=>{
     res.render('admin/admin', {results: []});
 });
 
-router.get('/register',isAdmin, (req, res) => {
+router.get('/register',middleware.isAdmin, (req, res) => {
     res.render('admin/register');
 });
 
-router.post('/register',isAdmin, (req, res) => {
+router.post('/register',middleware.isAdmin, (req, res) => {
     Admin.register({username: req.body.admin.username}, req.body.admin.password )
     .then((createdAdmin) =>{
         console.log("New Admin created");
@@ -34,7 +27,7 @@ router.post('/register',isAdmin, (req, res) => {
     })
 });
 
-router.get('/q',isAdmin, (req, res) => {
+router.get('/q',middleware.isAdmin, (req, res) => {
     let query = req.query.search;
     User.find({$or: [
         {email: new RegExp(query, 'i')},
@@ -51,14 +44,14 @@ router.get('/q',isAdmin, (req, res) => {
     });
 });
 
-router.get('/edit/:id',isAdmin, (req, res) => {
+router.get('/edit/:id',middleware.isAdmin, (req, res) => {
     User.findById(req.params.id)
     .then((foundUser) => {
         res.render('admin/edit', { user: foundUser});
     })
 })
 
-router.put('/edit/:id',isAdmin, (req, res) => {
+router.put('/edit/:id',middleware.isAdmin, (req, res) => {
     let updateData = {
         fullName: req.body.user.fullName,
         email: req.body.user.email,
@@ -74,7 +67,7 @@ router.put('/edit/:id',isAdmin, (req, res) => {
     });
 });
 
-router.get('/edit/:id/product/:productID',isAdmin, (req, res) => {
+router.get('/edit/:id/product/:productID',middleware.isAdmin, (req, res) => {
     let query = req.params.productID;
     User.findById(req.params.id)
     .then((user) => {
@@ -88,7 +81,7 @@ router.get('/edit/:id/product/:productID',isAdmin, (req, res) => {
 });
 
 // Update product details
-router.put('/edit/:id/product/:productID',isAdmin, (req, res) => {
+router.put('/edit/:id/product/:productID',middleware.isAdmin, (req, res) => {
     User.findOneAndUpdate({ _id: req.params.id, 'products._id': req.params.productID}, {
         'products.$.name': req.body.user.productName,
         'products.$.invoice': req.body.user.invoice,
@@ -105,7 +98,7 @@ router.put('/edit/:id/product/:productID',isAdmin, (req, res) => {
     })
 });
 
-router.delete('/edit/:id/product/:productID', isAdmin, (req, res) => {
+router.delete('/edit/:id/product/:productID', middleware.isAdmin, (req, res) => {
     User.findById(req.params.id)
     .then((user)=>{
         user.products.id(req.params.productID).remove();

@@ -12,8 +12,8 @@ const   express = require('express'),
         secret = process.env.SECRET,
         captchaKey = process.env.CAPTCHA,
         Admin = require('./models/admin'),
-        port = process.env.PORT, /* || 8080, */
-        dburl = process.env.DB_URL; /* || 'mongodb://localhost/warranty';*/
+        port = process.env.PORT,
+        dburl = process.env.DB_URL; 
 
 // Routes
 const   indexRoutes = require('./routes/index'),
@@ -47,7 +47,6 @@ app.use((req, res, next) => {
 
 app.use(indexRoutes);
 app.use('/admin', adminRoutes);
-
 
 
 app.listen(port, (req, res) => console.log(`Server is running on ${port}`));
