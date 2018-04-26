@@ -14,7 +14,8 @@ const   express = require('express'),
         Admin = require('./models/admin'),
         port = process.env.PORT,
         dburl = process.env.DB_URL; 
-
+// Comments are important!!
+// Add them regularly
 // Routes
 const   indexRoutes = require('./routes/index'),
         adminRoutes = require('./routes/admin');
