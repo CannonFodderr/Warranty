@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
         serial: String,
         store: String,
         note: String
+    }],
+    labs:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Lab"
     }]
 });
 

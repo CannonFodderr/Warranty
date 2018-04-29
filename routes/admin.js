@@ -1,11 +1,12 @@
-const   express = require('express'),
-        router = express.Router(),
-        mongoose = require('mongoose'),
-        passport = require('passport'),
-        middleware = require('../middleware'),
+const   express     = require('express'),
+        router      = express.Router(),
+        mongoose    = require('mongoose'),
+        passport    = require('passport'),
+        middleware  = require('../middleware'),
         expressSanitizer = require('express-sanitizer'),
-        Admin = require('../models/admin'),
-        User = require('../models/user');
+        Admin       = require('../models/admin'),
+        User        = require('../models/user'),
+        Lab         = require('../models/lab');
 
 router.get('/',middleware.isAdmin, (req, res)=>{
     res.render('admin/admin', {results: []});
@@ -35,6 +36,7 @@ router.get('/q',middleware.isAdmin, (req, res) => {
         {'products.serial': new RegExp(query, 'i')},
         {'products.invoice': new RegExp(query, 'i')}
     ]})
+    .lean()
     .then((results) => {
         res.render('admin/admin', {results: results});
     })
@@ -49,6 +51,10 @@ router.get('/edit/:id',middleware.isAdmin, (req, res) => {
     .then((foundUser) => {
         res.render('admin/edit', { user: foundUser});
     })
+    .catch((err)=>{
+        console.log(err);
+        res.redirect('back');
+    });
 })
 
 router.put('/edit/:id',middleware.isAdmin, (req, res) => {
@@ -83,7 +89,7 @@ router.get('/edit/:id/product/:productID',middleware.isAdmin, (req, res) => {
 // Update product details
 router.put('/edit/:id/product/:productID',middleware.isAdmin, (req, res) => {
     User.findOneAndUpdate({ _id: req.params.id, 'products._id': req.params.productID}, {
-        'products.$.name': req.body.user.productName,
+        'products.$.productName': req.body.user.productName,
         'products.$.invoice': req.body.user.invoice,
         'products.$.serial': req.body.user.serial,
         'products.$.note': req.body.user.note,
@@ -109,8 +115,75 @@ router.delete('/edit/:id/product/:productID', middleware.isAdmin, (req, res) => 
         console.log(err);
         res.redirect('back');
     })
-})
+});
 
+router.get('/lab/new',middleware.isAdmin, (req, res)=> res.render('lab/new'));
+
+
+router.post('/lab/new',middleware.isAdmin, (req, res) => {
+    let isPayed = false;
+    if(req.body.lab.isPayed == "on"){
+        isPayed = true;
+    }
+    let userData = {
+        email: req.body.user.email,
+        fullName: req.body.user.name,
+        phone: req.body.user.phone
+    }
+    
+    User.findOne({email: req.body.user.email})
+    .then((user)=>{
+        let note = {
+            author: req.user._id,
+            content: req.body.lab.note
+        };
+        if(user == null){
+            // User is null
+            User.create(userData, (err, createdUser) => {
+                if(err) throw err;
+                let newForm = {
+                    labNumber:  req.body.lab.number,
+                    product: req.body.lab.product,
+                    content: req.body.lab.content,
+                    payment: req.body.lab.payment,
+                    customer: createdUser._id,
+                    isPayed: isPayed
+                }
+                Lab.create(newForm, (err, createdForm)=>{
+                    if(err) throw err;
+                    createdUser.labs.push(createdForm._id);
+                    createdUser.save();
+                    createdForm.notes.push(note);
+                    createdForm.save();
+                    res.redirect('back');
+                })
+            })
+        } else {
+            // Found User
+            console.log('I found a user by email');
+            let newForm = {
+                    labNumber:  req.body.lab.number,
+                    product: req.body.lab.product,
+                    content: req.body.lab.content,
+                    payment: req.body.lab.payment,
+                    customer: user._id,
+                    isPayed: isPayed
+                }
+                Lab.create(newForm, (err, createdForm)=>{
+                    if(err) throw err;
+                    user.labs.push(createdForm._id);
+                    user.save();
+                    createdForm.notes.push(note);
+                    createdForm.save();
+                    res.redirect('back');
+                })
+        }
+    })
+    .catch((err)=>{
+        console.log(err);
+        res.redirect('back');
+    })
+})
 module.exports = router;
 
 
