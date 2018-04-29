@@ -1,0 +1,45 @@
+<% include ../partials/header %>
+<div class="container">
+    <h4>טופס תיקון חדש</h4>
+    <form action="/admin/lab/new" method="POST">
+    <div class="field">
+        <label for="">טופס מספר</label>
+        <input type="text" name="lab[number]" placeholder="">
+    </div>
+    <div class="field">
+        <label for="">שם לקוח</label>
+        <input type="text" name="user[name]" placeholder="">
+    </div>
+    <div class="field">
+        <label for="">דוא"ל</label>
+        <input type="email" name="user[email]" placeholder="">
+    </div>
+    <div class="field">
+        <label for="">טלפון</label>
+        <input type="tel" name="user[phone]" placeholder="">
+    </div>
+    <div class="field">
+        <label for="">מוצר לתיקון</label>
+        <input type="text" name="lab[product]" placeholder="">
+    </div>
+    <div class="field">
+        <label for="">תיאור תקלה</label>
+        <input type="text" name="lab[content]" placeholder="">
+    </div>
+    <div class="field">
+        <label for="">הערות</label>
+        <input type="text" name="lab[note]" placeholder="">
+    </div>
+    <div class="field">
+        <label for="">סכום לתשלום</label>
+        <input type="number" name="lab[payment]" placeholder="">
+    </div>
+    <label for="isPayed">
+    <input type="checkbox" name="lab[isPayed]" id="isPayed">
+    <span>שולם מראש</span>
+    </label>
+    <br>
+    <input class="btn "type="submit" value="שלח">
+    </form>
+</div>
+<% include ../partials/footer %>
