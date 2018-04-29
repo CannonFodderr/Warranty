@@ -47,14 +47,19 @@ router.get('/q',middleware.isAdmin, (req, res) => {
 });
 
 router.get('/edit/:id',middleware.isAdmin, (req, res) => {
-    User.findById(req.params.id)
-    .then((foundUser) => {
-        res.render('admin/edit', { user: foundUser});
+    User.findById(req.params.id).populate("Labs").exec(function(err,foundUser){
+        if(err) throw err;
+        console.log(foundUser.labs);
+        res.render('admin/edit', {user: foundUser});
     })
-    .catch((err)=>{
-        console.log(err);
-        res.redirect('back');
-    });
+    // .then((foundUser) => {
+    //     console.log(foundUser.labs);
+    //     res.render('admin/edit', { user: foundUser});
+    // })
+    // .catch((err)=>{
+    //     console.log(err);
+    //     res.redirect('back');
+    // });
 })
 
 router.put('/edit/:id',middleware.isAdmin, (req, res) => {
@@ -160,7 +165,6 @@ router.post('/lab/new',middleware.isAdmin, (req, res) => {
             })
         } else {
             // Found User
-            console.log('I found a user by email');
             let newForm = {
                     labNumber:  req.body.lab.number,
                     product: req.body.lab.product,
@@ -183,7 +187,19 @@ router.post('/lab/new',middleware.isAdmin, (req, res) => {
         console.log(err);
         res.redirect('back');
     })
-})
+});
+
+router.get('/lab/:id/:labID', (req, res) => {
+    User.findById(req.params.id).populate("Lab").exec()
+    .then((user)=>{
+        console.log(user);
+        res.render('lab/view', {user: user});
+    })
+    .catch((err)=>{
+        console.log(err);
+        res.redirect('back');
+    })
+});
 module.exports = router;
 
 
