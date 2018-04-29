@@ -47,19 +47,11 @@ router.get('/q',middleware.isAdmin, (req, res) => {
 });
 
 router.get('/edit/:id',middleware.isAdmin, (req, res) => {
-    User.findById(req.params.id).populate("Labs").exec(function(err,foundUser){
+    User.findById(req.params.id).populate("labs").exec(function(err,foundUser){
         if(err) throw err;
         console.log(foundUser.labs);
         res.render('admin/edit', {user: foundUser});
     })
-    // .then((foundUser) => {
-    //     console.log(foundUser.labs);
-    //     res.render('admin/edit', { user: foundUser});
-    // })
-    // .catch((err)=>{
-    //     console.log(err);
-    //     res.redirect('back');
-    // });
 })
 
 router.put('/edit/:id',middleware.isAdmin, (req, res) => {
