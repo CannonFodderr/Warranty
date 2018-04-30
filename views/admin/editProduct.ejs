@@ -1,5 +1,6 @@
 <% include ../partials/header %>
 <div class="container">
+        <a href="/admin/edit/<%= user._id %>">חזרה לדף לקוח</a>
     <div class="form_container">
             <h4>עריכת מוצר</h4>
             <form id="regForm" action="/admin/edit/<%= user._id %>/product/<%= product._id %>?_method=PUT"" method="POST">

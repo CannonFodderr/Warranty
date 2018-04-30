@@ -49,7 +49,6 @@ router.get('/q',middleware.isAdmin, (req, res) => {
 router.get('/edit/:id',middleware.isAdmin, (req, res) => {
     User.findById(req.params.id).populate("labs").exec(function(err,foundUser){
         if(err) throw err;
-        console.log(foundUser.labs);
         res.render('admin/edit', {user: foundUser});
     })
 })
@@ -114,84 +113,7 @@ router.delete('/edit/:id/product/:productID', middleware.isAdmin, (req, res) => 
     })
 });
 
-router.get('/lab/new',middleware.isAdmin, (req, res)=> res.render('lab/new'));
 
-
-router.post('/lab/new',middleware.isAdmin, (req, res) => {
-    let isPayed = false;
-    if(req.body.lab.isPayed == "on"){
-        isPayed = true;
-    }
-    let userData = {
-        email: req.body.user.email,
-        fullName: req.body.user.name,
-        phone: req.body.user.phone
-    }
-    
-    User.findOne({email: req.body.user.email})
-    .then((user)=>{
-        let note = {
-            author: req.user._id,
-            content: req.body.lab.note
-        };
-        if(user == null){
-            // User is null
-            User.create(userData, (err, createdUser) => {
-                if(err) throw err;
-                let newForm = {
-                    labNumber:  req.body.lab.number,
-                    product: req.body.lab.product,
-                    content: req.body.lab.content,
-                    payment: req.body.lab.payment,
-                    customer: createdUser._id,
-                    isPayed: isPayed
-                }
-                Lab.create(newForm, (err, createdForm)=>{
-                    if(err) throw err;
-                    createdUser.labs.push(createdForm._id);
-                    createdUser.save();
-                    createdForm.notes.push(note);
-                    createdForm.save();
-                    res.redirect('back');
-                })
-            })
-        } else {
-            // Found User
-            let newForm = {
-                    labNumber:  req.body.lab.number,
-                    product: req.body.lab.product,
-                    content: req.body.lab.content,
-                    payment: req.body.lab.payment,
-                    customer: user._id,
-                    isPayed: isPayed
-                }
-                Lab.create(newForm, (err, createdForm)=>{
-                    if(err) throw err;
-                    user.labs.push(createdForm._id);
-                    user.save();
-                    createdForm.notes.push(note);
-                    createdForm.save();
-                    res.redirect('back');
-                })
-        }
-    })
-    .catch((err)=>{
-        console.log(err);
-        res.redirect('back');
-    })
-});
-
-router.get('/lab/:id/:labID', (req, res) => {
-    User.findById(req.params.id).populate("Lab").exec()
-    .then((user)=>{
-        console.log(user);
-        res.render('lab/view', {user: user});
-    })
-    .catch((err)=>{
-        console.log(err);
-        res.redirect('back');
-    })
-});
 module.exports = router;
 
 
