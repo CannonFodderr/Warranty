@@ -1,5 +1,48 @@
 <% include ../partials/header %>
 <div class="container">
-    <h4>טופס תיקון מס' </h4>
+    <a href="/admin/edit/<%= item.customer._id %>">חזרה לדף לקוח</a>
+    <h4>טופס תיקון מס' <%= item.labNumber %></h4>        
+    <div class="card">
+            
+        <ul>
+            <h5>פרטי לקוח</h5>
+            <li><strong>שם: </strong><%= item.customer.fullName %></li>
+            <li><strong>דוא"ל:</strong> <%= item.customer.email %></li>
+            <li><strong>טלפון:</strong> <%= item.customer.phone %></li>
+        </ul>
+    </div>
+    <div class="card">
+        
+        <ul>
+        <li><strong>מוצר: </strong><%= item.product %></li>
+        <li><strong>עלות תיקון:</strong> <%= item.payment%> ש"ח</li>
+        <li><strong>שולם מראש:</strong>
+            <% if(item.isPayed === true){ %>
+                כן
+            <% } else { %>
+                לא
+            <% } %>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="card">
+        <h5>תיאור תקלה</h5>
+        <p><%= item.content %></p>
+        <h5>הערות מעבדה</h5>
+        <div class="card blue-grey darken-1 noteInput">
+        <form action="/admin/edit/<%= item.customer._id%>/labs/<%= item._id %>?_method=PUT" method="POST">
+            <label for="">הוסף הערה</label>
+            <input name="lab[note]" type="text" placeholder="" autofocus>
+            <input class="btn" type="submit" value="הוסף">
+        </form>
+        </div>
+        <% item.notes.forEach(function(note){ %>
+            <div class="card-content">
+                <h6><%=note.author.username %> - <%= note.date.toDateString() %></h6>
+                <p><%= note.content %></p>
+            </div>
+        <% }) %>
+    </div>
 </div>
 <% include ../partials/footer %>

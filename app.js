@@ -17,7 +17,8 @@ const   express                 = require('express'),
 
 // Routes
 const   indexRoutes = require('./routes/index'),
-        adminRoutes = require('./routes/admin');
+        adminRoutes = require('./routes/admin'),
+        labsRoutes = require('./routes/labs');
 //  DB Config
 mongoose.connect(dburl);
 // APP Config
@@ -47,6 +48,7 @@ app.use((req, res, next) => {
 
 app.use(indexRoutes);
 app.use('/admin', adminRoutes);
+app.use('/admin', labsRoutes);
 
 
 app.listen(port, (req, res) => console.log(`Server is running on ${port}`));
