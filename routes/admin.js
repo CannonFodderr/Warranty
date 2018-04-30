@@ -16,7 +16,7 @@ router.get('/register',middleware.isAdmin, (req, res) => {
     res.render('admin/register');
 });
 
-router.post('/register',middleware.isAdmin, (req, res) => {
+router.post('/register', (req, res) => {
     Admin.register({username: req.body.admin.username}, req.body.admin.password )
     .then((createdAdmin) =>{
         console.log("New Admin created");
