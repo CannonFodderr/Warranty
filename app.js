@@ -13,7 +13,7 @@ const   express                 = require('express'),
         captchaKey              = process.env.CAPTCHA,
         Admin                   = require('./models/admin'),
         port                    = process.env.PORT,
-        dburl                   = process.env.DB_URL; 
+        dburl                   = process.env.DB_URL || "mongodb://localhost/warranty"; 
 
 // Routes
 const   indexRoutes = require('./routes/index'),
