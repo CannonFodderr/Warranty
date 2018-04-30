@@ -46,7 +46,7 @@ router.post('/lab/new',middleware.isAdmin, (req, res) => {
                     createdUser.save();
                     createdForm.notes.push(note);
                     createdForm.save();
-                    res.redirect('back');
+                    res.redirect('/admin/edit/' + createdUser._id);
                 })
             })
         } else {
@@ -65,7 +65,7 @@ router.post('/lab/new',middleware.isAdmin, (req, res) => {
                     user.save();
                     createdForm.notes.push(note);
                     createdForm.save();
-                    res.redirect('back');
+                    res.redirect('/admin/edit/' + user._id);
                 })
         }
     })
@@ -74,7 +74,18 @@ router.post('/lab/new',middleware.isAdmin, (req, res) => {
         res.redirect('back');
     })
 });
-
+// New lab form for customer
+router.get('/edit/:id/labs/new',middleware.isAdmin, (req, res) => {
+    User.findById(req.params.id)
+    .then((foundUser) => {
+        res.render('lab/userNew', {user: foundUser});
+    })
+    .catch((err)=>{
+        console.log(err);
+        res.redirect('back');
+    })
+})
+// View lab details
 router.get('/edit/:id/labs/:labID',middleware.isAdmin, (req, res) => {
     Lab.findById(req.params.labID).populate("customer").populate("notes.author").exec()
     .then((item)=>{
@@ -86,6 +97,7 @@ router.get('/edit/:id/labs/:labID',middleware.isAdmin, (req, res) => {
     })
 });
 
+// Submit new note to lab
 router.put('/edit/:id/labs/:labID',middleware.isAdmin, (req, res) => {
     Lab.findById(req.params.labID)
     .then((foundItem) => {
