@@ -12,7 +12,7 @@ const   express                 = require('express'),
         secret                  = process.env.SECRET,
         captchaKey              = process.env.CAPTCHA,
         Admin                   = require('./models/admin'),
-        port                    = process.env.PORT,
+        port                    = process.env.PORT || 8080,
         dburl                   = process.env.DB_URL || "mongodb://localhost/warranty"; 
 
 // Routes
