@@ -12,7 +12,7 @@ router.get('/',middleware.isAdmin, (req, res)=>{
     res.render('admin/admin', {results: []});
 });
 
-router.get('/register',middleware.isAdmin, (req, res) => {
+router.get('/register', (req, res) => {
     res.render('admin/register');
 });
 
