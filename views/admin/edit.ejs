@@ -28,8 +28,15 @@
                 </ul>
                 <ul class="collection with-header">
                     <li class="collection-header"><h4>טפסי מעבדה</h4></li>
+                    <li class="collection-item">
+                        <strong><a href="/admin/edit/<%= user._id %>/labs/new">טופס מעבדה חדש</a></strong>  
+                    </li>
                     <% user.labs.forEach((item) => { %>
-                    <li class="collection-item"><a href="/admin/edit/<%= user._id %>/labs/<%=item._id %>?_method=PUT"><%= item.labNumber %></a></li> 
+                    <li class="collection-item">
+                        <a href="/admin/edit/<%= user._id %>/labs/<%=item._id %>?_method=PUT">
+                            <span><%= item.labNumber %></span> - <%= item.product %>
+                        </a>
+                    </li> 
                     <% })%>
                 </ul>
             </div>
