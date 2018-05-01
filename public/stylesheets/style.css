@@ -1,5 +1,5 @@
 :root{
-    --primary-color: #232323;
+    --primary-color: #212121 ;
     --info-color: #4682b4;
 }
 html, body{
@@ -35,13 +35,11 @@ main{
     margin: 0vh auto;
     width: 100%;
 }
-.profile{
-    grid-area: profile;
-    font-size: 1.5rem;
-    margin: 1vh auto;
-}
-.profile a{
-    margin: auto auto;
+
+#regBTN{
+    width: fit-content;
+    position: relative;
+    margin: auto 2vw auto 0vw;
 }
 .fixed-action-btn{
     right: unset !important;
