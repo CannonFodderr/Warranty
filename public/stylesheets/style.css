@@ -17,7 +17,7 @@ body{
     padding: 0vh 10vw 0vh 10vw;
     display: grid;
     grid-template-areas: 'brand space profile';
-    grid-template-columns: 2fr 3fr 5fr;
+    grid-template-columns: 2fr 6fr 2fr;
     grid-auto-rows: 10vh;
 }
 .navGrid img {
@@ -37,12 +37,15 @@ body{
 .profile a{
     margin: auto auto;
 }
-/* .navItem{
-    height: 100%;
-    color: #fff;
-    text-decoration: none;
-    margin: 1vh 1vw;
-} */
+.fixed-action-btn{
+    right: unset !important;
+    left: 24px !important;
+    line-height: 40px;
+}
+.adminMenu{
+    color: #000;
+    font-size: 0.8rem;
+}
 
 .container{
     padding: 1vh 2vw;
