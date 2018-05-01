@@ -37,9 +37,10 @@ main{
 }
 
 #regBTN{
+    grid-area: profile;
     width: fit-content;
     position: relative;
-    margin: auto 2vw auto 0vw;
+    margin: auto 0vw auto 0vw;
 }
 .fixed-action-btn{
     right: unset !important;
@@ -113,4 +114,13 @@ span::after{
 }
 .page-footer{
     padding-top: 0px !important;
+}
+
+@media (max-width: 666px){
+    #regBTN{
+        grid-area: profile;
+        width: fit-content;
+        position: relative;
+        margin: auto 0vw auto 0vw;
+    }
 }
