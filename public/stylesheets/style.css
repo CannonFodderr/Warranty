@@ -7,9 +7,15 @@ html, body{
 }
 
 body{
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 0;
     direction: rtl;
+    min-height: 100vh;
+}
+main{
+    flex: 1 0 auto;
 }
 .navGrid{
     height: auto;
@@ -107,4 +113,6 @@ span::after{
 .deleteButton{
     display: inline;
 }
-    
+.page-footer{
+    padding-top: 0px !important;
+}
