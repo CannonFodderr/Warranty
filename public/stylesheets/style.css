@@ -104,28 +104,4 @@ span::after{
 .deleteButton{
     display: inline;
 }
-
-/* @media (max-width: 768px){
-    .profile{
-        position: fixed;
-        width: 100%;
-        height: auto;
-        z-index: 100;
-        background: var(--primary-color);
-        bottom: 0;
-        font-size: 1.5rem;
-        margin: 0 auto;
-        padding: 0px 5px;
-    }
-    .profile a{
-        position: relative;
-        margin: 0 1%;
-    } */
-    .navGrid{
-        padding: 1vw;
-    }
-    .submit{
-        margin-bottom: 10vh;
-    }
-}
     
