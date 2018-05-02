@@ -7,7 +7,7 @@ for(let i = 0; i < viewBtn.length; i++){
         viewCnt.forEach((cnt) => {
             cnt.classList.remove('showMe');
         })
-        viewCnt[i].classList.toggle('showMe');       
+        viewCnt[i].classList.add('showMe');       
     });
 }
 

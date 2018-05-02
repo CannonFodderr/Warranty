@@ -69,6 +69,10 @@ span::before{
 }
 .showMe{
     display: block;
+    /* position: absolute !important;
+    z-index: 100;
+    width: 90%;
+    right: 5px; */
 }
 #otherStoreInput{
     display: none;
@@ -114,6 +118,10 @@ span::after{
 }
 .page-footer{
     padding-top: 0px !important;
+}
+#newForm{
+    color: #000;
+    display: block;
 }
 
 @media (max-width: 666px){

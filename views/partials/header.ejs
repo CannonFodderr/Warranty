@@ -13,7 +13,7 @@
 <body>
     <header>
         <nav class="navGrid">
-                <a id="regBTN" class="btn center-align" href="/register" class="navItem">חדש</a>  
+                <!-- <a id="regBTN" class="btn center-align" href="/register" class="navItem">חדש</a>   -->
             <div class="brand">
                 <a href="http://www.halilit.com" class="navItem">
                     <img class="logo" src="/images/logo.png" alt="לוגו חלילית">
@@ -26,13 +26,19 @@
                   <i class="large material-icons">menu</i>
                 </a>
                 <ul>
-                  <li><a class="btn-floating red" href="/admin"><i class="material-icons">home</i></a><span class="adminMenu">חפש</span></li>
+                  <li><a class="btn-floating red" href="/admin"><i class="material-icons">search</i></a><span class="adminMenu">חפש</span></li>
                   <li><a class="btn-floating blue" href="/register"><i class="material-icons">edit</i></a><span class="adminMenu">אחריות</span></li>
                   <li><a class="btn-floating green" href="/admin/lab/new"><i class="material-icons">note_add</i></a><span class="adminMenu">מעבדה</span></li>
                   <li><a class="btn-floating yellow darken-1" href="/logout"><i class="material-icons">sync_disabled</i></a><span class="adminMenu">התנתק</span></li>             
                 </ul>
               </div>  
-              <% } %>
+            <% } else { %>
+                <div class="fixed-action-btn">
+                    <a href="/register" class="btn-floating btn-large red">
+                        <i class="large material-icons">add</i>
+                    </a>
+                </div>
+            <% } %>
         </nav>
     </header>
     <main>
