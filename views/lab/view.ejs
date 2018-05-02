@@ -14,27 +14,66 @@
     <div class="card">
         
         <ul>
+        <li><strong>מצב: </strong><%= item.status %></li>
         <li><strong>מוצר: </strong><%= item.product %></li>
-        <li><strong>עלות תיקון:</strong> <%= item.payment%> ש"ח</li>
-        <li><strong>שולם מראש:</strong>
+        <li><strong>עלות בדיקה:</strong> <%= item.check%> ש"ח</li>
+        <li><strong>בדיקה שולמה מראש:</strong>
             <% if(item.isPayed === true){ %>
                 כן
             <% } else { %>
                 לא
             <% } %>
             </li>
+        
+        <li><strong>תיקון וחלקים: </strong><%= item.cost %> ש"ח</li>
+        <li><strong>יתרה לתשלום: </strong>
+            <% if(item.isPayed === true){%>
+                <%= item.cost %> ש"ח
+            <% } else { %>
+                <%= item.cost + item.check %> ש"ח
+            <% } %>
+        </li>
         </ul>
     </div>
     
-    <div class="card">
+    <div id="labUpdates" class="card">
         <h5>תיאור תקלה</h5>
         <p><%= item.content %></p>
-        <h5>הערות מעבדה</h5>
-        <div class="card blue-grey darken-1 noteInput">
+        <h5>עדכוני מעבדה</h5>
+        <div class="card noteInput">
         <form action="/admin/edit/<%= item.customer._id%>/labs/<%= item._id %>?_method=PUT" method="POST">
-            <label for="">הוסף הערה</label>
-            <input name="lab[note]" type="text" placeholder="" autofocus>
-            <input class="btn" type="submit" value="הוסף">
+            
+            <label for="">עלות תיקון וחלקים</label>
+            <input name="lab[cost]" type="number" placeholder="">
+            <!-- Status Select -->
+                <div class="field stores">
+                <h5>מצב פנייה</h5>
+                <label class="radioLabel store">
+                    <input class="with-gap" name="lab[status]" value="פתוחה" type="radio" checked/>
+                    <span class="radioSpan">פתוחה</span>
+                </label>
+                <label class="radioLabel store">    
+                    <input class="with-gap" name="lab[status]" value="נשלחה הצעת מחיר" type="radio" dir="rtl">
+                    <span class="radioSpan">נשלחה הצעת מחיר</span>
+                </label>
+                <label class="radioLabel store">
+                    <input class="with-gap" name="lab[status]" value="הוזמנו חלקים" type="radio" />
+                    <span class="radioSpan">הוזמנו חלקים</span>
+                </label>
+                <label class="radioLabel store">
+                    <input class="with-gap" name="lab[status]" value="בתיקון" type="radio" />
+                    <span class="radioSpan">בתיקון</span>
+                </label>
+                <label class="radioLabel store">
+                    <input class="with-gap" name="lab[status]" value="סגורה" type="radio" />
+                    <span class="radioSpan">סגורה</span>
+                </label>
+                      
+            </div>
+                <label for="">הוסף הערה</label>
+                <input name="lab[note]" type="text" placeholder="" autofocus>    
+            <!-- End Status Select -->
+            <input class="btn" type="submit" value="שלח עדכון">
         </form>
         </div>
         <% item.notes.forEach(function(note){ %>

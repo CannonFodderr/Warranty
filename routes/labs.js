@@ -36,7 +36,8 @@ router.post('/lab/new',middleware.isAdmin, (req, res) => {
                     labNumber:  req.body.lab.number,
                     product: req.body.lab.product,
                     content: req.body.lab.content,
-                    payment: req.body.lab.payment,
+                    payment: req.body.lab.check,
+                    status: req.body.lab.status,
                     customer: createdUser._id,
                     isPayed: isPayed
                 }
@@ -55,7 +56,8 @@ router.post('/lab/new',middleware.isAdmin, (req, res) => {
                     labNumber:  req.body.lab.number,
                     product: req.body.lab.product,
                     content: req.body.lab.content,
-                    payment: req.body.lab.payment,
+                    payment: req.body.lab.check,
+                    status: req.body.lab.status,
                     customer: user._id,
                     isPayed: isPayed
                 }
@@ -101,9 +103,16 @@ router.get('/edit/:id/labs/:labID',middleware.isAdmin, (req, res) => {
 router.put('/edit/:id/labs/:labID',middleware.isAdmin, (req, res) => {
     Lab.findById(req.params.labID)
     .then((foundItem) => {
+        let newCost = req.body.lab.cost;
+        let newStatus = req.body.lab.status;
         let newNote = {
             author: req.user.id,
-            content: req.body.lab.note
+            content: req.body.lab.status + " - " + req.body.lab.note,
+        }
+        
+        foundItem.status = newStatus;
+        if(newCost){
+            foundItem.cost = newCost;
         }
         foundItem.notes.push(newNote);
         foundItem.save();

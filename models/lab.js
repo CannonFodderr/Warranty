@@ -27,11 +27,22 @@ const   express = require('express'),
                     default: Date.now()
                 }
             }],
-            payment: String,
-                isPayed: {
-                    type: Boolean,
-                    default: false
-                },
+            check: {
+                type: Number,
+                default: 150
+            },
+            isPayed: {
+                type: Boolean,
+                default: false
+            },
+            cost: {
+                type: Number,
+                default: 0
+            },
+            status: {
+                type: String,
+                default: "פתוחה"
+            }
         })
 
 module.exports = mongoose.model("Lab", labSchema);

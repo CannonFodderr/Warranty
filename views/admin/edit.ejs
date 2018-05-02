@@ -37,7 +37,7 @@
                     <% user.labs.forEach((item) => { %>
                     <li class="collection-item">
                         <a href="/admin/edit/<%= user._id %>/labs/<%=item._id %>?_method=PUT">
-                            <span><%= item.labNumber %></span> - <%= item.product %>
+                            <span><%= item.labNumber %></span> - <%= item.product %> - <%= item.status %>
                         </a>
                     </li> 
                     <% })%>

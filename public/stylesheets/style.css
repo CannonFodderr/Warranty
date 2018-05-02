@@ -123,6 +123,9 @@ span::after{
     color: #000;
     display: block;
 }
+#labUpdates{
+    padding: 1vh 2vw 1vh 2vw;
+}
 
 @media (max-width: 666px){
     #regBTN{
