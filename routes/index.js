@@ -14,58 +14,7 @@ router.get('/register', (req, res) => {
 });
 // Post a new form
 router.post('/register',middleware.formIsFilled, (req, res) => {
-    let sanitizedName = req.sanitize(req.body.user.fullName);
-    let sanitizedNote = req.sanitize(req.body.user.note);
-    let newUser = {
-        email: req.body.user.email,
-        fullName: sanitizedName,
-        phone: req.body.user.phone
-    }
-    let newProduct = {
-        invoice: req.body.user.invoice,
-        productName: req.body.user.productName,
-        serial: req.body.user.serial,
-        store: req.body.store,
-        note: sanitizedNote
-    }
-    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-        return res.render('index', {msg: "Please select captcha"});
-    }
-    var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + captchaKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-    request(verificationUrl,function(error,response,body) {
-        body = JSON.parse(body);
-        // Success will be true or false depending upon captcha validation.
-        if(body.success !== undefined && !body.success) {
-          return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
-        }
-        let query = User.where({email: newUser.email});
-        query.findOne((err, foundEmail) => {
-        if(err){
-            console.log(err);
-            res.redirect('/');
-        } else if(foundEmail == null){
-            console.log('Email is null creating new User')
-            User.create(newUser, (err, createdUser) => {
-                if(err){ 
-                    console.log(err);
-                    res.render('index', {msg: "תקלה בשליחת הטופס אנא נסה שנית"});
-                } else {
-                    createdUser.products.push(newProduct);
-                    createdUser.save();
-                    res.render('index', {msg: "תודה, הטופס נשלח בהצלחה"});
-                }
-            })
-        } else {
-            console.log('Found Email adding to products array');
-            foundEmail.products.push(newProduct);
-            foundEmail.save();
-            res.render('index', {msg: "תודה, הטופס נשלח בהצלחה"});
-        }
-    });
-    });
-
-
-    
+    middleware.newRegisterForm(req, res);
 });
 
 router.get('/login', (req, res) => {
