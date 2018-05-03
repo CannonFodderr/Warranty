@@ -36,7 +36,7 @@
                     </li>
                     <% user.labs.forEach((item) => { %>
                     <li class="collection-item">
-                        <a href="/admin/edit/<%= user._id %>/labs/<%=item._id %>?_method=PUT">
+                        <a href="/admin/edit/<%= user._id %>/labs/<%=item._id %>">
                             <% if(item.status == "סגורה") { %>
                             <span><%= item.labNumber %></span> - <%= item.product %> - <%= item.status %>
                             <% } else { %>
