@@ -38,7 +38,10 @@ router.get('/edit/:id/labs/new',middleware.isAdmin, (req, res) => {
 router.get('/edit/:id/labs/:labID',middleware.isAdmin, (req, res) => {
     Lab.findById(req.params.labID).populate("customer").populate("notes.author").exec()
     .then((item)=>{
-        res.render('lab/view', {item: item});
+        let oneDay = 24 * 60 * 60 * 1000;
+        let todayDate = Date.now();
+        let timeSinceCreated = Math.floor(Math.abs((item.date - todayDate)/oneDay));
+        res.render('lab/view', {item: item, time:timeSinceCreated});
     })
     .catch((err)=>{
         console.log(err);

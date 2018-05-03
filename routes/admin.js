@@ -49,7 +49,8 @@ router.get('/q',middleware.isAdmin, (req, res) => {
 router.get('/edit/:id',middleware.isAdmin, (req, res) => {
     User.findById(req.params.id).populate("labs").exec(function(err,foundUser){
         if(err) throw err;
-        res.render('admin/edit', {user: foundUser});
+        let todayDate = Date.now();
+        res.render('admin/edit', {user: foundUser, today:todayDate});
     })
 })
 

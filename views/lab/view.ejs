@@ -15,6 +15,10 @@
         
         <ul>
         <li><strong>מצב: </strong><%= item.status %></li>
+        <li><strong>נוצר בתאריך: </strong><%= item.date.toDateString() %></li>
+        <% if(item.status != "סגורה"){ %>
+            <li><strong>זמן במעבדה: </strong><span id="timeSinceCreated"> <%= time %> </span>יום</li>
+        <% } %> 
         <li><strong>מוצר: </strong><%= item.product %></li>
         <li><strong>עלות בדיקה:</strong> <%= item.check%> ש"ח</li>
         <li><strong>בדיקה שולמה מראש:</strong>
@@ -23,7 +27,7 @@
             <% } else { %>
                 לא
             <% } %>
-            </li>
+        </li>
         
         <li><strong>תיקון וחלקים: </strong><%= item.cost %> ש"ח</li>
         <li><strong>יתרה לתשלום: </strong>

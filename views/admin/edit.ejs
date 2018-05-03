@@ -37,7 +37,11 @@
                     <% user.labs.forEach((item) => { %>
                     <li class="collection-item">
                         <a href="/admin/edit/<%= user._id %>/labs/<%=item._id %>?_method=PUT">
+                            <% if(item.status == "סגורה") { %>
                             <span><%= item.labNumber %></span> - <%= item.product %> - <%= item.status %>
+                            <% } else { %>
+                            <span><%= item.labNumber %></span> - <%= item.product %> - <%= item.status %> - <%= item.date.toDateString() %>
+                            <% } %>
                         </a>
                     </li> 
                     <% })%>
