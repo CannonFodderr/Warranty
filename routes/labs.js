@@ -39,9 +39,11 @@ router.get('/edit/:id/labs/:labID',middleware.isAdmin, (req, res) => {
     Lab.findById(req.params.labID).populate("customer").populate("notes.author").exec()
     .then((item)=>{
         let oneDay = 24 * 60 * 60 * 1000;
+        let fixWarrantyDays = oneDay * item.fixWarranty;
         let todayDate = Date.now();
         let timeSinceCreated = Math.floor(Math.abs((item.date - todayDate)/oneDay));
-        res.render('lab/view', {item: item, time:timeSinceCreated});
+        let timeSinceUpdated = Math.floor((item.fixWarranty - todayDate )/oneDay);
+        res.render('lab/view', {item: item, time:timeSinceCreated, fixWarranty: timeSinceUpdated});
     })
     .catch((err)=>{
         console.log(err);

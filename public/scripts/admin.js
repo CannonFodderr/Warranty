@@ -20,3 +20,4 @@ if(document.querySelector('#timeSinceCreated')){
     timeColor.style.fontWeight = "bold";
   }
 }
+

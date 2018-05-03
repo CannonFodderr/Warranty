@@ -31,6 +31,11 @@
         </li>
         
         <li><strong>תיקון וחלקים: </strong><%= item.cost %> ש"ח</li>
+        <% if(fixWarranty < 0) { %>
+            <li><strong>אחריות על תיקון: </strong> לא באחריות!</li>
+        <% } else { %>
+        <li><strong>אחריות על תיקון: </strong> נותרו <%= fixWarranty %> ימים</li>
+        <% } %>
         <li><strong>יתרה לתשלום: </strong>
             <% if(item.isPayed === true){%>
                 <%= item.cost %> ש"ח
@@ -38,18 +43,20 @@
                 <%= item.cost + item.check %> ש"ח
             <% } %>
         </li>
+        <br>
+        <li><strong>תאור תקלה: </strong><%= item.content %></li>
         </ul>
     </div>
     
     <div id="labUpdates" class="card">
-        <h5>תיאור תקלה</h5>
-        <p><%= item.content %></p>
+        
         <h5>עדכוני מעבדה</h5>
         <div class="card noteInput">
         <form action="/admin/edit/<%= item.customer._id%>/labs/<%= item._id %>?_method=PUT" method="POST">
-            
-            <label for="">עלות תיקון וחלקים</label>
-            <input name="lab[cost]" type="number" placeholder="">
+            <label for="notes">הוסף הערה</label>
+            <input id="notes" name="lab[note]" type="text" placeholder="הוזמנו חלקים\תיקון הסתיים וכו'...">
+            <label for="repairCost">עלות תיקון וחלקים</label>
+            <input id="repairCost" name="lab[cost]" type="number" placeholder='סכום בש"ח'>
             <!-- Status Select -->
                 <div class="field stores">
                 <h5>עדכן מצב פנייה</h5>
@@ -71,22 +78,27 @@
                 </label>
                 <label class="radioLabel store">
                     <input class="with-gap" name="lab[status]" value="סגורה" type="radio" />
-                    <span class="radioSpan">סגורה</span>
+                    <span class="radioSpan">סגורה - לקוח אסף מוצר</span>
                 </label>
                       
             </div>
-                <label for="">הוסף הערה</label>
-                <input name="lab[note]" type="text" placeholder="">    
             <!-- End Status Select -->
-            <input class="btn" type="submit" value="שלח עדכון">
+                
+                <label for="">אחריות על תיקון עד:</label>
+                <input name="lab[fixWarranty]" type="date" class="datepicker">     
+            <br>
+            <input id="labSubmit" class="btn" type="submit" value="שלח עדכון">
         </form>
         </div>
-        <% item.notes.forEach(function(note){ %>
-            <div class="card-content">
-                <h6><%=note.author.username %> - <%= note.date.toDateString() %></h6>
-                <p><%= note.content %></p>
-            </div>
-        <% }) %>
+        
+    </div>
+    <div class="card">
+    <% item.notes.forEach(function(note){ %>
+        <div class="card-content">
+            <h6><%=note.author.username %> - <%= note.date.toDateString() %></h6>
+            <p><%= note.content %></p>
+        </div>
+    <% }) %>
     </div>
 </div>
 <% include ../partials/footer %>

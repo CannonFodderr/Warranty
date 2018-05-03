@@ -123,8 +123,21 @@ span::after{
     color: #000;
     display: block;
 }
+#repairCost{
+    width: min-content;
+}
+#labSubmit{
+    width:100% ;
+}
 #labUpdates{
-    padding: 1vh 2vw 1vh 2vw;
+    border: 1px solid black;
+    padding-right: 1vw;
+    padding-left: 1vw;
+}
+.datepicker{
+    /* display: inline; */
+    text-align: right;
+    width: max-content !important;
 }
 
 @media (max-width: 666px){

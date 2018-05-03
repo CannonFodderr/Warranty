@@ -42,7 +42,8 @@ const   express = require('express'),
             status: {
                 type: String,
                 default: "פתוחה"
-            }
+            },
+            fixWarranty: Date
         })
 
 module.exports = mongoose.model("Lab", labSchema);

@@ -154,6 +154,7 @@ middlewareOBJ.updateLab = (req, res) => {
     Lab.findById(req.params.labID)
     .then((foundItem) => {
         let newCost = req.body.lab.cost;
+        let fixWarranty = req.body.lab.fixWarranty;
         let newStatus = req.body.lab.status;
         let newNote = {
             author: req.user.id,
@@ -163,6 +164,9 @@ middlewareOBJ.updateLab = (req, res) => {
         foundItem.status = newStatus;
         if(newCost){
             foundItem.cost = newCost;
+        }
+        if(fixWarranty){
+            foundItem.fixWarranty = fixWarranty;
         }
         foundItem.notes.push(newNote);
         foundItem.save();
