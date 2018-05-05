@@ -17,7 +17,7 @@
         <li><strong>מצב: </strong><%= item.status %></li>
         <li><strong>נוצר בתאריך: </strong><%= item.date.toDateString() %></li>
         <% if(item.status != "סגורה"){ %>
-            <li><strong>זמן במעבדה: </strong><span id="timeSinceCreated"> <%= time %> </span>יום</li>
+            <li><strong>זמן מאז שנוצר: </strong><span id="timeSinceCreated"> <%= time %> </span>יום</li>
         <% } %> 
         <li><strong>מוצר: </strong><%= item.product %></li>
         <li><strong>עלות בדיקה:</strong> <%= item.check%> ש"ח</li>
@@ -47,7 +47,7 @@
         </li>
             <li><strong>אחריות על תיקון: </strong> לא באחריות!</li>
         <% } else { %>
-        <li><strong>אחריות על תיקון: </strong> נותרו <%= fixWarranty %> ימים</li>
+            <li><strong>אחריות על תיקון: </strong> נותרו <%= fixWarranty %> ימים</li>
         <% } %>
         <br>
         <li><strong>תאור תקלה: </strong><%= item.content %></li>
