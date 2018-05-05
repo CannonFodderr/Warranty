@@ -3,8 +3,7 @@
     <a  href="/admin/edit/<%= item.customer._id %>" class="waves-effect waves-light btn">
         <i class="material-icons right">arrow_forward</i>חזרה לדף לקוח</a>
     <h4>טופס תיקון מס' <%= item.labNumber %></h4>        
-    <div class="card">
-            
+    <div class="card">          
         <ul>
             <h5>פרטי לקוח</h5>
             <li><strong>שם: </strong><%= item.customer.fullName %></li>
@@ -31,11 +30,6 @@
         </li>
         
         <li><strong>תיקון וחלקים: </strong><%= item.cost %> ש"ח</li>
-        <% if(fixWarranty < 0) { %>
-            <li><strong>אחריות על תיקון: </strong> לא באחריות!</li>
-        <% } else { %>
-        <li><strong>אחריות על תיקון: </strong> נותרו <%= fixWarranty %> ימים</li>
-        <% } %>
         <li><strong>יתרה לתשלום: </strong>
             <% if(item.isPayed === true){%>
                 <%= item.cost %> ש"ח
@@ -43,13 +37,24 @@
                 <%= item.cost + item.check %> ש"ח
             <% } %>
         </li>
+        <% if(fixWarranty < 0) { %>
+            <li><strong>יתרה לתשלום: </strong>
+            <% if(item.isPayed === true){%>
+                <%= item.cost %> ש"ח
+            <% } else { %>
+                <%= item.cost + item.check %> ש"ח
+            <% } %>
+        </li>
+            <li><strong>אחריות על תיקון: </strong> לא באחריות!</li>
+        <% } else { %>
+        <li><strong>אחריות על תיקון: </strong> נותרו <%= fixWarranty %> ימים</li>
+        <% } %>
         <br>
         <li><strong>תאור תקלה: </strong><%= item.content %></li>
         </ul>
     </div>
     
-    <div id="labUpdates" class="card">
-        
+    <div id="labUpdates" class="card">    
         <h5>עדכוני מעבדה</h5>
         <div class="card noteInput">
         <form action="/admin/edit/<%= item.customer._id%>/labs/<%= item._id %>?_method=PUT" method="POST">

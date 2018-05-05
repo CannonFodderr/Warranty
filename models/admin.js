@@ -6,8 +6,16 @@ const   express                 = require('express'),
 
 
 let adminSchema = mongoose.Schema({
-    username: String,
-    password: String
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    password: String,
+    permissions: {
+        type: Number,
+        default: 1
+    }
 });
 
 adminSchema.plugin(passportLocalMongoose);

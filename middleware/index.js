@@ -4,6 +4,7 @@ const   express     = require('express'),
         passport    = require('passport'),
         request     = require('request'),
         middleware  = require('../middleware'),
+        permissions = require('../middleware/permissions'),
         expressSanitizer = require('express-sanitizer'),
         captchaKey  = process.env.CAPTCHA,
         Admin       = require('../models/admin'),
@@ -32,6 +33,14 @@ middlewareOBJ.isAdmin = (req, res, next) => {
         return next();
     } else {
         res.redirect('/login');
+    }
+}
+
+middlewareOBJ.checkAdminPermissions = (req, res, next) => {
+    if(req.isAuthenticated() && req.user.permissions >= permissions.permissions.Admin){
+        return next();
+    } else {
+        res.render('login', {msg: "אין לך הרשאות מתאימות"});
     }
 }
 // ====================

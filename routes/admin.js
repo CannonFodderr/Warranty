@@ -3,6 +3,7 @@ const   express     = require('express'),
         mongoose    = require('mongoose'),
         passport    = require('passport'),
         middleware  = require('../middleware'),
+        permissions = require('../middleware/permissions'),
         expressSanitizer = require('express-sanitizer'),
         Admin       = require('../models/admin'),
         User        = require('../models/user'),
@@ -12,12 +13,16 @@ router.get('/',middleware.isAdmin, (req, res)=>{
     res.render('admin/admin', {results: []});
 });
 
-router.get('/register',middleware.isAdmin, (req, res) => {
+router.get('/register',middleware.checkAdminPermissions, (req, res) => {
     res.render('admin/register');
 });
 
-router.post('/register',middleware.isAdmin, (req, res) => {
-    Admin.register({username: req.body.admin.username}, req.body.admin.password )
+router.post('/register',middleware.checkAdminPermissions, (req, res) => {
+    let newAdmin = {
+        username: req.body.admin.username,
+        permissions: req.body.permissions
+    }
+    Admin.register(newAdmin, req.body.admin.password )
     .then((createdAdmin) =>{
         console.log("New Admin created");
         res.redirect('/login');

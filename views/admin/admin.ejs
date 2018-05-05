@@ -2,6 +2,9 @@
 
 <div class="container">
     <h4>ממשק ניהול</h4>
+    <% if(currentAdmin.permissions >= 9){ %>
+      <a href="/admin/register">צור מנהל חדש</a>
+    <% } %>
 <form action="/admin/q" method="GET">
     <label>חפש הרשמות</label>
     <input name="search" type="text" placeholder="חפש לפי שם,דואר אלקטרוני, חשבונית או מספר סידורי" autofocus>

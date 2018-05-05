@@ -1,5 +1,11 @@
 <% include ./partials/header %>
+
 <div class="container">
+    <% if(msg.length > 1 ) { %>
+        <div class="field">
+        <h3 class="msg"><%= msg %></h3>
+        </div>
+    <% } %>
     <h4>כניסה למערכת</h4>
     <form action="/login" method="POST">
         <div class="field">
