@@ -5,7 +5,10 @@ const express = require('express'),
 var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 const userSchema = new mongoose.Schema({
-    email: String,
+    email: {
+        type: String,
+        unique: true
+    },
     fullName: String,
     phone: String,
     date: {

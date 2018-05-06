@@ -49,16 +49,19 @@ middlewareOBJ.checkAdminPermissions = (req, res, next) => {
 // New Register form
 middlewareOBJ.newRegisterForm = (req, res) => {
     let sanitizedName = req.sanitize(req.body.user.fullName);
+    let sanitizeProductName = req.sanitize(req.body.user.productName);
+    let sanitizeEmail = req.sanitize(req.body.user.email);
     let sanitizedNote = req.sanitize(req.body.user.note);
+    let sanitizeSerial = req.sanitize(req.body.user.serial);
     let newUser = {
-        email: req.body.user.email,
+        email: sanitizeEmail,
         fullName: sanitizedName,
         phone: req.body.user.phone
     }
     let newProduct = {
         invoice: req.body.user.invoice,
-        productName: req.body.user.productName,
-        serial: req.body.user.serial,
+        productName: sanitizeProductName,
+        serial: sanitizeSerial,
         store: req.body.store,
         note: sanitizedNote
     }
