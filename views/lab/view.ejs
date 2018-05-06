@@ -2,7 +2,17 @@
 <div class="container">
     <a  href="/admin/edit/<%= item.customer._id %>" class="waves-effect waves-light btn">
         <i class="material-icons right">arrow_forward</i>חזרה לדף לקוח</a>
-    <h4>טופס תיקון מס' <%= item.labNumber %></h4>        
+   
+    <h4>טופס תיקון מס' <%= item.labNumber %></h4>
+    <div class="row">
+            <div class="col s12">
+                    <ul class="tabs">
+                    <li class="tab col s4 l4"><a href="#payments">תשלום</a></li>
+                    <li class="tab col s4 l4"><a href="#labUpdates">עדכוני מעבדה</a></li>
+                    <li class="tab col s4 l4"><a class="active" href="#details">פירוט</a></li>
+                </ul>
+            </div>     
+    <div id="details" class="col s12">        
     <div class="card">          
         <ul>
             <h5>פרטי לקוח</h5>
@@ -12,8 +22,8 @@
         </ul>
     </div>
     <div class="card">
-        
         <ul>
+        <h5>מידע</h5>
         <li><strong>מצב: </strong><%= item.status %></li>
         <li><strong>נוצר בתאריך: </strong><%= item.date.toDateString() %></li>
         <% if(item.status != "סגורה"){ %>
@@ -53,8 +63,11 @@
         <li><strong>תאור תקלה: </strong><%= item.content %></li>
         </ul>
     </div>
-    
-    <div id="labUpdates" class="card">    
+    </div>
+<!-- LAB UPDATES -->
+<div id="labUpdates" class="col s12">
+    <div class="card">
+            
         <h5>עדכוני מעבדה</h5>
         <div class="card noteInput">
         <form action="/admin/edit/<%= item.customer._id%>/labs/<%= item._id %>?_method=PUT" method="POST">
@@ -96,7 +109,7 @@
         </form>
         </div>
         
-    </div>
+    
     <div class="card">
     <% item.notes.forEach(function(note){ %>
         <div class="card-content">
@@ -105,5 +118,37 @@
         </div>
     <% }) %>
     </div>
+    </div>
+</div>
+    <!-- Payments -->
+    <div id="payments" class="col s12">
+    <form action="/admin/edit/<%= item.customer._id%>/labs/<%= item._id %>/pay?_method=PUT" method="POST">
+        <h5>תשלום</h5>
+        <ul>
+            <li><strong>יתרה לתשלום: </strong>
+                <span class="numbers">
+                <% if(item.isPayed === true){%>
+                    <%= item.cost %></span> ש"ח
+                <% } else { %>
+                    <%= item.cost + item.check %></span> ש"ח
+                <% } %>
+                
+            </li>
+        </ul>
+        <label for="isPayed">
+            <input type="checkbox" name="lab[isPayed]" id="isPayed" <% if(item.isPayed == true) { %>
+               checked 
+            <% } %>>
+            <span>קזז עלות בדיקה \ בדיקה שולמה מראש</span>
+        </label>
+        <br>
+        <label for="repairCost">תשלום לקוח</label>
+        <input id="repairCost" name="lab[cost]" type="number" placeholder='סכום בש"ח'>
+        <br>
+        <input class="btn" type="submit" value="עדכן תשלום">    
+    </form>
+    </div>
+    <!-- END CONTAINER -->
+</div>
 </div>
 <% include ../partials/footer %>

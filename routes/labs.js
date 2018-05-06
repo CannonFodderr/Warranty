@@ -54,6 +54,26 @@ router.get('/edit/:id/labs/:labID',middleware.isAdmin, (req, res) => {
 // Submit new note to lab
 router.put('/edit/:id/labs/:labID',middleware.isAdmin, (req, res) => {
     middleware.updateLab(req, res);
+});
+
+router.put('/edit/:id/labs/:labID/pay', middleware.isAdmin, (req, res) => {
+    Lab.findById(req.params.labID)
+    .then((item) => {
+        if(req.body.lab.isPayed == "on"){
+            isPayed = true;
+        } else {
+            isPayed = false;
+        }
+    
+        item.cost = item.cost - req.body.lab.cost;
+        item.isPayed = isPayed;
+        item.save();
+        res.redirect('back');
+    })
+    .catch((err) =>{
+        console.log(err);
+        res.redirect('back');
+    })
 })
 
 

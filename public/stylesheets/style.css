@@ -130,7 +130,6 @@ span::after{
     width:100% ;
 }
 #labUpdates{
-    border: 1px solid black;
     padding-right: 1vw;
     padding-left: 1vw;
 }
@@ -138,6 +137,13 @@ span::after{
     /* display: inline; */
     text-align: right;
     width: max-content !important;
+}
+.tab{
+    text-align: right;
+}
+
+.numbers{
+    direction: ltr;
 }
 
 @media (max-width: 666px){

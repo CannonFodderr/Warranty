@@ -1,5 +1,9 @@
 let elem = document.querySelector('.fixed-action-btn');
 let instance = M.FloatingActionButton.init(elem);
+// Tabs
+let el = document.querySelector('.tabs');
+let tabs = M.Tabs.init(el);
+
 
 if(document.getElementById('adminMenu')){
   let adminMenu = document.getElementById('adminMenu');
@@ -20,4 +24,5 @@ if(document.querySelector('#timeSinceCreated')){
     timeColor.style.fontWeight = "bold";
   }
 }
+
 
