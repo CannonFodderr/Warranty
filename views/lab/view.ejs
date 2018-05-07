@@ -44,14 +44,6 @@
                 <%= item.cost + item.check %> ש"ח
             <% } %>
         </li>
-        
-            <li><strong>יתרה לתשלום: </strong>
-            <% if(item.isPayed === true){%>
-                <%= item.cost %> ש"ח
-            <% } else { %>
-                <%= item.cost + item.check %> ש"ח
-            <% } %>
-        </li>
         <% if(fixWarranty) { %>    
             <li><strong>אחריות על תיקון: </strong> נותרו <%= fixWarranty %> ימים</li>
         <% } else { %>
