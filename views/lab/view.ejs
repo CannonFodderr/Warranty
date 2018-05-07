@@ -19,8 +19,6 @@
             <li><strong>דוא"ל:</strong><a href="mailto:<%=item.customer.email%>?subject=חלילית - עדכון מעבדה - <%= item.labNumber %>"> <%= item.customer.email %></a></li>
             <li><strong>טלפון:</strong> <%= item.customer.phone %></li>
         </ul>
-    </div>
-    <div class="card">
         <ul>
         <h5>מידע</h5>
         <li><strong>מצב: </strong><%= item.status %></li>
@@ -30,7 +28,7 @@
         <% } %> 
         <li><strong>מוצר: </strong><%= item.product %></li>
         <li><strong>עלות בדיקה:</strong> <%= item.check%> ש"ח</li>
-        <li><strong>בדיקה שולמה מראש:</strong>
+        <li><strong>בדיקה שולמה:</strong>
             <% if(item.isPayed === true){ %>
                 כן
             <% } else { %>
@@ -46,7 +44,7 @@
                 <%= item.cost + item.check %> ש"ח
             <% } %>
         </li>
-        <% if(fixWarranty < 0) { %>
+        
             <li><strong>יתרה לתשלום: </strong>
             <% if(item.isPayed === true){%>
                 <%= item.cost %> ש"ח
@@ -54,9 +52,10 @@
                 <%= item.cost + item.check %> ש"ח
             <% } %>
         </li>
-            <li><strong>אחריות על תיקון: </strong> לא באחריות!</li>
-        <% } else { %>
+        <% if(fixWarranty) { %>    
             <li><strong>אחריות על תיקון: </strong> נותרו <%= fixWarranty %> ימים</li>
+        <% } else { %>
+            <li><strong>אחריות על תיקון: </strong> אין</li>
         <% } %>
         <br>
         <li><strong>תאור תקלה: </strong><%= item.content %></li>
