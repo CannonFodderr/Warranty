@@ -34,6 +34,8 @@ app.use(require('express-session')({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
+app.disable('x-powered-by');
+
 // Auth Config
 passport.use(new LocalStrategy(Admin.authenticate()));
 passport.serializeUser(Admin.serializeUser());
