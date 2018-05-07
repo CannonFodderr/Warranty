@@ -16,7 +16,7 @@
         <ul>
             <h5>פרטי לקוח</h5>
             <li><strong>שם: </strong><%= item.customer.fullName %></li>
-            <li><strong>דוא"ל:</strong> <%= item.customer.email %></li>
+            <li><strong>דוא"ל:</strong><a href="mailto:<%=item.customer.email%>?subject=חלילית - עדכון מעבדה - <%= item.labNumber %>"> <%= item.customer.email %></a></li>
             <li><strong>טלפון:</strong> <%= item.customer.phone %></li>
         </ul>
     </div>
