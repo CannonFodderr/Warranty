@@ -22,7 +22,7 @@
         <ul>
         <h5>מידע</h5>
         <li><strong>מצב: </strong><%= item.status %></li>
-        <li><strong>נוצר בתאריך: </strong><%= item.date.toDateString() %></li>
+        <li><strong>נוצר בתאריך: </strong><%= item.date.toLocaleDateString('en-US', {day: 'numeric', month: 'short', year: 'numeric'}) %></li>
         <% if(item.status != "סגורה"){ %>
             <li><strong>זמן מאז שנוצר: </strong><span id="timeSinceCreated"> <%= time %> </span>יום</li>
         <% } %> 
@@ -58,7 +58,7 @@
 <div id="labUpdates" class="col s12">
     <div class="card">
             
-        <h5>עדכוני מעבדה</h5>
+        <h5>עדכון חדש</h5>
         <div class="card noteInput">
         <form action="/admin/edit/<%= item.customer._id%>/labs/<%= item._id %>?_method=PUT" method="POST">
             <label for="notes">הוסף הערה</label>
@@ -98,12 +98,10 @@
             <input id="labSubmit" class="btn" type="submit" value="שלח עדכון">
         </form>
         </div>
-        
-    
     <div class="card">
     <% item.notes.forEach(function(note){ %>
-        <div class="card-content">
-            <h6><%=note.author.username %> - <%= note.date.toDateString() %></h6>
+        <div class="card-content updateListItem">
+            <h6><%=note.author.username %> - <%= note.date.toLocaleDateString('en-US', {day: 'numeric', month: 'short', year: 'numeric'}) %></h6>
             <p><%= note.content %></p>
         </div>
     <% }) %>

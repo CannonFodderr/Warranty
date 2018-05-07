@@ -153,6 +153,10 @@ span::after{
     color: var(--info-color);
 }
 
+.updateListItem:nth-child(odd){
+    background: #ccc;
+}
+
 @media (max-width: 666px){
     #regBTN{
         grid-area: profile;

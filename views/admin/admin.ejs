@@ -34,7 +34,7 @@
                 <% result.products.forEach((product)=>{ %>
                     <h5>מוצר: <%= product.productName %></h5>
                     <p><strong>נרכש בסניף:</strong>  <%= product.store %></p>
-                    <p><strong>רישום מוצר:</strong>  <%= product.regDate.toDateString("he-IL") %></p>
+                    <p><strong>רישום מוצר:</strong>  <%= product.regDate.toDateString() %></p>
                     <p><strong> מס' חשבונית: </strong><%= product.invoice %></p>
                     <p><strong>מס' סידורי: </strong> <%= product.serial %></p>
                     <p><strong>הערה: </strong> <%= product.note %></p>

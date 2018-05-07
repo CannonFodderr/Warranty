@@ -11,7 +11,6 @@
         </ul>
         </div>
         <div id="customer" class="form_container col s12">
-            
             <h2>עריכת לקוח</h2>
             <p><strong>תאריך רישום:</strong><span class="date"> <%= user.date.toLocaleDateString('en-US', {day: 'numeric', month: 'short', year: 'numeric'}) %></span></p>
             <form id="regForm" action="/admin/edit/<%= user._id %>?_method=PUT" method="POST">
@@ -48,11 +47,11 @@
                 <li class="collection-item">
                     <a href="/admin/edit/<%= user._id %>/labs/<%=item._id %>">
                         <% if(item.status == "סגורה") { %>
-                        <span><%= item.labNumber %></span> - <%= item.product %> - <%= item.status %>
+                        <span><%= item.labNumber %></span></a> - <%= item.product %> - <%= item.status %>
                         <% } else { %>
-                        <span><%= item.labNumber %></span> - <%= item.product %> - <%= item.status %> - <%= item.date.toDateString() %>
+                        <span><%= item.labNumber %></span></a> - <%= item.product %> - <%= item.status %> - <%= item.date.toLocaleDateString('en-US', {day: 'numeric', month: 'short', year: 'numeric'}) %>
                         <% } %>
-                    </a>
+                    
                 </li> 
                 <% })%>
             </ul>
