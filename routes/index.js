@@ -10,7 +10,7 @@ const   express             = require('express'),
 router.get('/', (req, res) => res.redirect('/register'));
 // Display form page
 router.get('/register', (req, res) => {
-    res.render('index', {captcha: captchaKey});
+    res.render('index', {captcha: captchaKey, title: 'רישום מוצר'});
 });
 // Post a new form
 router.post('/register',middleware.formIsFilled, (req, res) => {
@@ -18,7 +18,7 @@ router.post('/register',middleware.formIsFilled, (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-    res.render('login');
+    res.render('login', {title: 'כניסה למערכת'});
 });
 
 router.post('/login', passport.authenticate('local', 

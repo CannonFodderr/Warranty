@@ -10,11 +10,11 @@ const   express     = require('express'),
         Lab         = require('../models/lab');
 
 router.get('/',middleware.isAdmin, (req, res)=>{
-    res.render('admin/admin', {results: []});
+    res.render('admin/admin', {results: [], title: 'חיפוש'});
 });
 
 router.get('/register',middleware.checkAdminPermissions, (req, res) => {
-    res.render('admin/register');
+    res.render('admin/register', {title: 'רישום מנהל'});
 });
 
 router.post('/register',middleware.checkAdminPermissions, (req, res) => {
@@ -43,7 +43,7 @@ router.get('/q',middleware.isAdmin, (req, res) => {
     ]})
     .lean()
     .then((results) => {
-        res.render('admin/admin', {results: results});
+        res.render('admin/admin', {results: results, title: 'תוצאות חיפוש'});
     })
     .catch((err) => {
         console.log(err);
@@ -55,7 +55,7 @@ router.get('/edit/:id',middleware.isAdmin, (req, res) => {
     User.findById(req.params.id).populate("labs").exec(function(err,foundUser){
         if(err) throw err;
         let todayDate = Date.now();
-        res.render('admin/edit', {user: foundUser, today:todayDate});
+        res.render('admin/edit', {user: foundUser, today:todayDate, title: 'פרטי לקוח'});
     })
 })
 
@@ -80,7 +80,7 @@ router.get('/edit/:id/product/:productID',middleware.isAdmin, (req, res) => {
     User.findById(req.params.id)
     .then((user) => {
         let product = user.products.id(query);
-        res.render('admin/editProduct', {product: product, user:user});
+        res.render('admin/editProduct', {product: product, user:user, title:'פרטי מוצר'});
     })
     .catch((err) => {
         console.log(err);
