@@ -1,5 +1,6 @@
 let viewBtn = document.querySelectorAll('.viewBtn');
 let viewCnt = document.querySelectorAll('.viewCnt');
+let closeBTN = document.querySelectorAll('.closeCard')
 
 
 for(let i = 0; i < viewBtn.length; i++){
@@ -9,7 +10,11 @@ for(let i = 0; i < viewBtn.length; i++){
         })
         viewCnt[i].classList.add('showMe');       
     });
+    closeBTN[i].addEventListener('click', ()=>{
+        viewCnt[i].classList.remove('showMe');
+    });
 }
+
 
 
 

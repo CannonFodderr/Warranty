@@ -120,7 +120,7 @@
     </div>
 </div>
     <!-- Payments -->
-    <div id="payments" class="col s12">
+    <div id="payments" class="card col s12">
     <form action="/admin/edit/<%= item.customer._id%>/labs/<%= item._id %>/pay?_method=PUT" method="POST">
         <h5>תשלום</h5>
         <ul>
@@ -144,7 +144,8 @@
         <label for="repairCost">תשלום לקוח</label>
         <input id="repairCost" name="lab[cost]" type="number" placeholder='סכום בש"ח'>
         <br>
-        <input class="btn" type="submit" value="עדכן תשלום">    
+        <input class="btn" type="submit" value="עדכן תשלום">
+        <br>    
     </form>
     </div>
     <!-- END CONTAINER -->

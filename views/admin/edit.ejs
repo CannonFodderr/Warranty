@@ -11,7 +11,9 @@
         </ul>
         </div>
         <div id="customer" class="form_container col s12">
-            <h1>עריכת לקוח</h1>
+            
+            <h2>עריכת לקוח</h2>
+            <p><strong>תאריך רישום:</strong><span class="date"> <%= user.date.toLocaleDateString('en-US', {day: 'numeric', month: 'short', year: 'numeric'}) %></span></p>
             <form id="regForm" action="/admin/edit/<%= user._id %>?_method=PUT" method="POST">
                 <div class="field">
                         <label for="">שם מלא:</label>

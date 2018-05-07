@@ -69,10 +69,6 @@ span::before{
 }
 .showMe{
     display: block;
-    /* position: absolute !important;
-    z-index: 100;
-    width: 90%;
-    right: 5px; */
 }
 #otherStoreInput{
     display: none;
@@ -134,9 +130,12 @@ span::after{
     padding-left: 1vw;
 }
 .datepicker{
-    /* display: inline; */
     text-align: right;
     width: max-content !important;
+}
+
+.date{
+    direction: ltr;
 }
 .tab{
     text-align: right;
@@ -144,6 +143,14 @@ span::after{
 
 .numbers{
     direction: ltr;
+}
+
+.closeCard{
+    cursor: pointer;
+}
+
+.closeCard:hover{
+    color: var(--info-color);
 }
 
 @media (max-width: 666px){
