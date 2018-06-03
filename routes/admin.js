@@ -1,13 +1,17 @@
 const   express     = require('express'),
         router      = express.Router(),
+        fs          = require('fs'),
+        bodyParser = require('body-parser'),
         mongoose    = require('mongoose'),
         passport    = require('passport'),
+        multer      = require('multer'),
         middleware  = require('../middleware'),
         permissions = require('../middleware/permissions'),
         expressSanitizer = require('express-sanitizer'),
         Admin       = require('../models/admin'),
         User        = require('../models/user'),
         Lab         = require('../models/lab');
+
 
 router.get('/',middleware.isAdmin, (req, res)=>{
     res.render('admin/admin', {results: [], title: 'חיפוש'});
@@ -80,7 +84,7 @@ router.get('/edit/:id/product/:productID',middleware.isAdmin, (req, res) => {
     User.findById(req.params.id)
     .then((user) => {
         let product = user.products.id(query);
-        res.render('admin/editProduct', {product: product, user:user, title:'פרטי מוצר'});
+        res.render('admin/editProduct', {product: product, user:user, title:'פרטי מוצר', msg: ""});
     })
     .catch((err) => {
         console.log(err);
@@ -119,7 +123,54 @@ router.delete('/edit/:id/product/:productID', middleware.isAdmin, (req, res) => 
     })
 });
 
-
+// UPLOAD product file
+router.post('/edit/:id/product/:productID/upload', middleware.isAdmin, (req, res)=>{
+    User.findById(req.params.id).then((foundUser)=>{
+        let product = foundUser.products.id(req.params.productID);
+        const invoice = foundUser.products.id(req.params.productID).invoice;
+        const userPath = './uploads/' + foundUser.email + '/';
+        const invoicePath = './uploads/' + foundUser.email + '/' + invoice + '/';
+        if(!fs.existsSync(userPath)){
+            fs.mkdirSync(userPath);
+            fs.mkdirSync(invoicePath);
+            console.log('Creating all directories');
+        } else if(!fs.existsSync(invoicePath)){
+            fs.mkdirSync(invoicePath);
+            console.log('creating invoice direcotry');
+        } else {
+            console.log('Adding files to directory');
+        }
+        // Upload vars
+        const storage = multer.diskStorage({
+            destination: (req, file, cb)=>{
+                cb(null, invoicePath)
+            },
+            filename: (req, file, cb) => {
+                cb(null, file.originalname);
+            }
+        });
+        const upload = multer({
+            storage: storage,
+            limits: {
+                fileSize: 1000000
+            }
+        }).single('productFile');
+        
+        upload(req,res, (e)=>{
+            if(e){
+                console.error(e);
+                if(e.code === 'LIMIT_FILE_SIZE'){
+                    res.render('admin/editProduct', {product: product, user:foundUser, title:'פרטי מוצר', msg: 'הקובץ גדול מידי :('});
+                }
+            } else {
+                res.redirect('back');
+            }
+        })
+        
+    }).catch((e)=>{
+        console.error(e);
+    })
+})
 module.exports = router;
 
 

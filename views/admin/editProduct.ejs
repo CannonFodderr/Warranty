@@ -1,11 +1,16 @@
 <% include ../partials/header %>
 <div class="container">
+    <% if(msg.length > 1 ) { %>
+        <div class="field">
+            <h3 class="msg"><%= msg %></h3>
+        </div>
+    <% } %>
     <a  href="/admin/edit/<%= user._id %>" class="waves-effect waves-light btn">
         <i class="material-icons right">arrow_forward</i>חזרה לדף לקוח</a>
     <div class="form_container">
             <h4>עריכת מוצר</h4>
             <p><strong>תאריך רישום מוצר: </strong> <%= product.regDate.toLocaleDateString('en-US', {day: 'numeric', month: 'short', year: 'numeric'})%></p>
-            <form id="regForm" action="/admin/edit/<%= user._id %>/product/<%= product._id %>?_method=PUT"" method="POST">
+            <form id="regForm" action="/admin/edit/<%= user._id %>/product/<%= product._id %>?_method=PUT" "method="POST">
                 <div class="field">
                     <label for="">חשבונית:</label>
                     <input type="text" value="<%= product.invoice %>" name="user[invoice]" placeholder="Invoice" required>
@@ -27,7 +32,13 @@
                     <label for="">הערות:</label>
                     <textarea class="materialize-textarea" name="user[note]" id="userNote" cols="10" rows="5"><%= product.note %></textarea>
                 </div>
-                <input class="btn" type="submit" value="שלח">
+                <input class="btn" type="submit" value="עדכן מוצר">
+            </form>
+            <br>
+            <form action="/admin/edit/<%= user._id %>/product/<%= product._id %>/upload" method="POST" enctype="multipart/form-data">
+                <label for="">הוכחת קנייה</label>
+                <input type="file" id="productFile" name="productFile" placeholder="בחר קובץ">
+                <input type="submit" class="btn" value="שלח קובץ">
             </form>
         </div>
 </div>

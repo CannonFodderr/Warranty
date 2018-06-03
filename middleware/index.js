@@ -85,18 +85,18 @@ middlewareOBJ.newRegisterForm = (req, res) => {
             User.create(newUser, (err, createdUser) => {
                 if(err){ 
                     console.log(err);
-                    res.render('index', {msg: "תקלה בשליחת הטופס אנא נסה שנית"});
+                    res.render('index', {title: "רישום מוצר", msg: "תקלה בשליחת הטופס אנא נסה שנית"});
                 } else {
                     createdUser.products.push(newProduct);
                     createdUser.save();
-                    res.render('index', {msg: "תודה, הטופס נשלח בהצלחה"});
+                    res.render('index', {title: "רישום מוצר", msg: "תודה, הטופס נשלח בהצלחה"});
                 }
             })
         } else {
             console.log('Found Email adding to products array');
             foundEmail.products.push(newProduct);
             foundEmail.save();
-            res.render('index', {msg: "תודה, הטופס נשלח בהצלחה"});
+            res.render('index', {title: "רישום מוצר", msg: "תודה, הטופס נשלח בהצלחה"});
         }
     });
     });
