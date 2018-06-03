@@ -24,7 +24,8 @@ const userSchema = new mongoose.Schema({
         productName: String,
         serial: String,
         store: String,
-        note: String
+        note: String,
+        file: String
     }],
     labs:[{
             type: mongoose.Schema.Types.ObjectId,

@@ -126,6 +126,7 @@ router.delete('/edit/:id/product/:productID', middleware.isAdmin, (req, res) => 
 // UPLOAD product file
 router.post('/edit/:id/product/:productID/upload', middleware.isAdmin, (req, res)=>{
     User.findById(req.params.id).then((foundUser)=>{
+        let fileName = "";
         let product = foundUser.products.id(req.params.productID);
         const invoice = foundUser.products.id(req.params.productID).invoice;
         const userPath = './uploads/' + foundUser.email + '/';
@@ -147,6 +148,7 @@ router.post('/edit/:id/product/:productID/upload', middleware.isAdmin, (req, res
             },
             filename: (req, file, cb) => {
                 cb(null, file.originalname);
+                fileName = file.originalname;
             }
         });
         const upload = multer({
@@ -155,7 +157,6 @@ router.post('/edit/:id/product/:productID/upload', middleware.isAdmin, (req, res
                 fileSize: 1000000
             }
         }).single('productFile');
-        
         upload(req,res, (e)=>{
             if(e){
                 console.error(e);
@@ -163,6 +164,8 @@ router.post('/edit/:id/product/:productID/upload', middleware.isAdmin, (req, res
                     res.render('admin/editProduct', {product: product, user:foundUser, title:'פרטי מוצר', msg: 'הקובץ גדול מידי :('});
                 }
             } else {
+                foundUser.products.id(req.params.productID).file = invoicePath + fileName;
+                foundUser.save();
                 res.redirect('back');
             }
         })

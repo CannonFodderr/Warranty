@@ -1,5 +1,6 @@
 const   express             = require('express'),
         router              = express.Router(),
+        fs                  = require('fs'),
         request             = require('request'),
         passport            = require('passport'),
         middleware          = require('../middleware'),
@@ -33,5 +34,10 @@ router.get('/logout', (req, res)=>{
     res.redirect('/');
 });
 
+router.get('/uploads/:userEmail/:productInvoice/:fileName',middleware.isAdmin, (req, res)=>{
+    const filePath = "./uploads/" + req.params.userEmail + '/' + req.params.productInvoice + '/' + req.params.fileName;
+    const readStream = fs.createReadStream(filePath);
+    readStream.pipe(res);
+})
 module.exports = router;
 

@@ -35,11 +35,17 @@
                 <input class="btn" type="submit" value="עדכן מוצר">
             </form>
             <br>
+            <% if(product.file){ %>
+                <form action="../../../../<%= product.file %>" method="GET">
+                    <button class="btn">צפה בהוכחת רכישה</button>
+                </form>
+            <% } else { %>
             <form action="/admin/edit/<%= user._id %>/product/<%= product._id %>/upload" method="POST" enctype="multipart/form-data">
                 <label for="">הוכחת קנייה</label>
                 <input type="file" id="productFile" name="productFile" placeholder="בחר קובץ">
                 <input type="submit" class="btn" value="שלח קובץ">
             </form>
+            <% } %>
         </div>
 </div>
 <% include ../partials/footer %>
