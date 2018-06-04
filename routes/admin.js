@@ -180,7 +180,7 @@ router.post('/edit/:id/product/:productID/upload', middleware.isAdmin, (req, res
             } else {
                 foundUser.products.id(req.params.productID).file = invoicePath + fileName;
                 foundUser.save();
-                res.redirect('back');
+                res.render('admin/editProduct', {product: product, user:foundUser, title:'פרטי מוצר', msg: 'הקובץ עודכן בהצלחה!'});
             }
         })
         
