@@ -1,6 +1,7 @@
 const   express     = require('express'),
         router      = express.Router(),
         fs          = require('fs'),
+        path        = require('path'),
         bodyParser = require('body-parser'),
         mongoose    = require('mongoose'),
         passport    = require('passport'),
@@ -155,7 +156,20 @@ router.post('/edit/:id/product/:productID/upload', middleware.isAdmin, (req, res
             storage: storage,
             limits: {
                 fileSize: 1000000
-            }
+            },
+            fileFilter: function (req, file, cb) {
+
+                var filetypes = /jpeg|jpg|png|pdf/;
+                var mimetype = filetypes.test(file.mimetype);
+                var extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+            
+                if (mimetype && extname) {
+                  return cb(null, true);
+                }
+                cb("Error: File upload only supports the following filetypes - " + filetypes);
+                res.render('admin/editProduct', 
+                {product: product, user:foundUser, title:'פרטי מוצר', msg: 'הקובץ לא מתאים נסה להעלות קבצי ' + filetypes});
+            } 
         }).single('productFile');
         upload(req,res, (e)=>{
             if(e){
