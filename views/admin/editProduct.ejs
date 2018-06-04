@@ -36,9 +36,10 @@
             </form>
             <br>
             <% if(product.file){ %>
-                <form action="../../../../<%= product.file %>" method="GET">
+                <!-- <form action="../../../../<%= product.file %>" method="GET">
                     <button class="btn">צפה בהוכחת רכישה</button>
-                </form>
+                </form> -->
+                <a class="btn orange" href="../../../../<%= product.file %>" target="_blank">צפה בהוכחת רכישה</a>
             <% } else { %>
             <form action="/admin/edit/<%= user._id %>/product/<%= product._id %>/upload" method="POST" enctype="multipart/form-data">
                 <label for="">הוכחת קנייה</label>
