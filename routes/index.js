@@ -38,6 +38,7 @@ router.get('/uploads/:userEmail/:productInvoice/:fileName',middleware.isAdmin, (
     const filePath = "./uploads/" + req.params.userEmail + '/' + req.params.productInvoice + '/' + req.params.fileName;
     const readStream = fs.createReadStream(filePath);
     readStream.pipe(res);
-})
+});
+
 module.exports = router;
 

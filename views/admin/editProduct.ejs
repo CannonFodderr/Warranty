@@ -39,7 +39,10 @@
                 <!-- <form action="../../../../<%= product.file %>" method="GET">
                     <button class="btn">צפה בהוכחת רכישה</button>
                 </form> -->
-                <a class="btn orange" href="../../../../<%= product.file %>" target="_blank">צפה בהוכחת רכישה</a>
+                <a class="btn orange" href="../../../..<%= product.file %>" target="_blank">צפה בהוכחת רכישה</a>
+                <form action="/admin/<%= user._id%>/<%= product._id %><%= product.file %>?_method=DELETE" method="post">
+                    <input class="btn red" type="submit" value="מחק קובץ">
+                </form>
             <% } else { %>
             <form action="/admin/edit/<%= user._id %>/product/<%= product._id %>/upload" method="POST" enctype="multipart/form-data">
                 <label for="">הוכחת קנייה</label>

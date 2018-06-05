@@ -130,14 +130,14 @@ router.post('/edit/:id/product/:productID/upload', middleware.isAdmin, (req, res
         let fileName = "";
         let product = foundUser.products.id(req.params.productID);
         const invoice = foundUser.products.id(req.params.productID).invoice;
-        const userPath = './uploads/' + foundUser.email + '/';
-        const invoicePath = './uploads/' + foundUser.email + '/' + invoice + '/';
-        if(!fs.existsSync(userPath)){
-            fs.mkdirSync(userPath);
-            fs.mkdirSync(invoicePath);
+        const userPath = foundUser.email + '/';
+        const invoicePath = foundUser.email + '/' + invoice + '/';
+        if(!fs.existsSync('./uploads/' + userPath)){
+            fs.mkdirSync('./uploads/' + userPath);
+            fs.mkdirSync('./uploads/' + invoicePath);
             console.log('Creating all directories');
-        } else if(!fs.existsSync(invoicePath)){
-            fs.mkdirSync(invoicePath);
+        } else if(!fs.existsSync('./uploads/' + invoicePath)){
+            fs.mkdirSync('./uploads/' + invoicePath);
             console.log('creating invoice direcotry');
         } else {
             console.log('Adding files to directory');
@@ -145,7 +145,7 @@ router.post('/edit/:id/product/:productID/upload', middleware.isAdmin, (req, res
         // Upload vars
         const storage = multer.diskStorage({
             destination: (req, file, cb)=>{
-                cb(null, invoicePath)
+                cb(null, './uploads/' + invoicePath)
             },
             filename: (req, file, cb) => {
                 cb(null, file.originalname);
@@ -158,11 +158,9 @@ router.post('/edit/:id/product/:productID/upload', middleware.isAdmin, (req, res
                 fileSize: 1000000
             },
             fileFilter: function (req, file, cb) {
-
                 var filetypes = /jpeg|jpg|png|pdf/;
                 var mimetype = filetypes.test(file.mimetype);
                 var extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-            
                 if (mimetype && extname) {
                   return cb(null, true);
                 }
@@ -178,7 +176,7 @@ router.post('/edit/:id/product/:productID/upload', middleware.isAdmin, (req, res
                     res.render('admin/editProduct', {product: product, user:foundUser, title:'פרטי מוצר', msg: 'הקובץ גדול מידי :('});
                 }
             } else {
-                foundUser.products.id(req.params.productID).file = invoicePath + fileName;
+                foundUser.products.id(req.params.productID).file = '/uploads/' + invoicePath + fileName;
                 foundUser.save();
                 res.render('admin/editProduct', {product: product, user:foundUser, title:'פרטי מוצר', msg: 'הקובץ עודכן בהצלחה!'});
             }
@@ -187,6 +185,37 @@ router.post('/edit/:id/product/:productID/upload', middleware.isAdmin, (req, res
     }).catch((e)=>{
         console.error(e);
     })
+})
+router.get('/uploads/:userEmail/:productInvoice/:fileName',middleware.isAdmin, (req, res)=>{
+    const filePath = "./uploads/" + req.params.userEmail + '/' + req.params.productInvoice + '/' + req.params.fileName;
+    const readStream = fs.createReadStream(filePath);
+    readStream.pipe(res);
+});
+
+router.delete('/:userID/:productID/uploads/:useremail/:invoice/:filename', (req, res)=>{
+    User.findById(req.params.userID).then((foundUser)=>{
+        const product = foundUser.products.id(req.params.productID);
+        console.log(product);
+        product.file = "";
+        foundUser.save();
+        console.log('Deleted from DB');
+        const deletePath = './uploads/' + req.params.useremail + '/' + req.params.invoice + '/' + req.params.filename;
+        console.log(deletePath);
+        fs.unlink(deletePath, (e)=>{
+            if(e){
+                console.error(e);
+                res.redirect('back');
+            } else {
+                console.log('file was deleted from Server');
+                res.render('admin/editProduct', {product: product, user:foundUser, title:'פרטי מוצר', msg: 'קובץ נמחק בהלחה'});
+
+            }
+        })
+    }).catch((e)=>{
+        console.error(e);
+        res.render('admin/editProduct', {product: product, user:foundUser, title:'פרטי מוצר', msg: 'תקלה במחיקת הקובץ'});
+    })
+    
 })
 module.exports = router;
 
